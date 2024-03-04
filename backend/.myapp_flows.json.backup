@@ -1,0 +1,57 @@
+[
+    {
+        "id": "0ccca2864a862deb",
+        "type": "tab",
+        "label": "Dependencies",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "343bd1d1781d7763",
+        "type": "socketio-config",
+        "port": "8000",
+        "sendClient": "true",
+        "path": "/socket.io",
+        "bindToNode": true
+    },
+    {
+        "id": "258b10b8f37491f0",
+        "type": "function",
+        "z": "0ccca2864a862deb",
+        "name": "Dependencies",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "openEasyrtc",
+                "module": "open-easyrtc"
+            }
+        ],
+        "x": 160,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "074d8fe8f0da5dfc",
+        "type": "socketio-in",
+        "z": "0ccca2864a862deb",
+        "name": "",
+        "server": "343bd1d1781d7763",
+        "rules": [
+            {
+                "v": ""
+            }
+        ],
+        "x": 130,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    }
+]

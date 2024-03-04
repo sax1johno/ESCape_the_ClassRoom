@@ -1,0 +1,57 @@
+version: "3"
+services:
+  nginx:
+    image: nginx:1.15-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+  redis:
+    image: redis/redis-stack:latest
+    volumes:
+      - ./redis:/data
+    command: redis-server --appendonly yes --save 60 1 --loglevel warning
+    restart: always
+    environment:
+      - REDIS_REPLICATION_MODE=master    
+  # skills-service:
+  #   image: skilltree/skills-service:2.3.3
+  #   ports:
+  #     - 8001:8080
+  #   environment:
+  #     - SPRING_PROPS="\spring.datasource.url=jdbc:h2:file:/db/skillsdb
+  #   volumes:
+  #     - ./data:/db
+  node-red:
+    image: sax1johno/node-red-base:v2.4.0
+    # environment:
+      # - AUTH_USERS="[{\"username\":\"sax1johno\",\"password\":\"Rx9RmMg6v3P\",\"permissions\":\"*\"}]"
+    ports:
+      - "8000:80"
+    volumes:
+      - ./backend:/usr/src/workspace
+  # nocobase:
+  #   image: nocobase/nocobase:latest
+  #   environment:
+  #     # - APP_PORT=8001
+  #     # - APP_HOST=0.0.0.0
+  #     - DB_HOST=storage/db/johnwoconnor.db
+  #     - INIT_ROOT_EMAIL=sax1johno@gmail.com
+  #     - INIT_ROOT_PASSWORD=c14fc19fC!
+  #     - LOCAL_STORAGE_BASE_URL=http://localhost:13000/storage/uploads
+  #   volumes:
+  #     - ./data:/app/nocobase/storage
+  #   ports:
+  #     - "13000:80"
+volumes:
+  nginx_secrets: {}
