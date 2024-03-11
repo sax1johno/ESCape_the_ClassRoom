@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ESCape the ClassRoom</title>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
+    <!-- environment: Pretty stage presets. -->
+    <script src="https://unpkg.com/aframe-environment-component@2.0.0/dist/aframe-environment-component.min.js"></script>
+    <!-- proxy-event: Declaratively capture and event and reroute it to another entity. -->
+    <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script>
+    <!-- render-order: Control rendering order for transparent objects. -->
+    <script src="https://unpkg.com/aframe-render-order-component@1.0.0/dist/aframe-render-order-component.min.js"></script>
+    <!-- state: Manage application state and bind it to parts of the application to automatically react to state changes. -->
+    <script src="https://unpkg.com/aframe-state-component@6.6.0/dist/aframe-state-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.2.0/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-gltf-part-component/dist/aframe-gltf-part-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/physx@latest/dist/physx.min.js"></script>    
+    <script>
+      // Remove nav-mesh component from aframe-extras.
+      delete AFRAME.components['nav-mesh']
+    </script>
+    <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
+    <script src="https://binzume.github.io/aframe-xylayout/dist/xylayout-all.min.js"></script>    
+    <script src="https://unpkg.com/aframe-locomotion@0.2.0/dist/aframe-locomotion.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.5.0/socket.io.slim.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/open-easyrtc@2.0.20/api/easyrtc.js"></script>
+    <script src="https://unpkg.com/networked-aframe@^0.12.0/dist/networked-aframe.min.js"></script>
+    <!-- <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>     -->
+    <script src="/js/aframe-components/simple-navmesh-constraint.js"></script>
+    <script src="/js/aframe-components/game-state-machine.js"></script>
+  </head>
+  <body>
+    <a-scene     
+      raycaster="objects:.collidable;far:5500;"
+      cursor__mouse="rayOrigin: mouse"
+      cursor__xrselect="rayOrigin: xrselect"
+      physx="autoLoad: true; delay: 1000; wasmUrl: https://cdn.jsdelivr.net/gh/c-frame/physx@v0.1.0/wasm/physx.release.wasm; useDefaultScene: false;"
+      webxr="overlayElement:#dom-overlay;"
+      gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/versioned/decoders/1.5.6/;"
+      xr-mode-ui="XRMode:xr"
+      networked-scene="
+        room: default;
+        adapter: wseasyrtc;
+        debug: true;
+        "
+    >
+      <a-assets>
+        <a-asset-item crossorigin="anonymous" id="apartment" src="./3dmodels/low_poly__apartment/ApartmentScene.glb"></a-asset-item>
+        <a-asset-item crossorigin="anonymous" id="apartment_navmesh" src="./3dmodels/low_poly__apartment/navmesh.gltf"></a-asset-item>
+      </a-assets>
+      <!-- <a-sky material="shader: gradient; topColor: 200 200 200; bottomColor: 150 150 150"></a-sky>       -->
+      <a-entity 
+        id="cameraRig" 
+        simple-navmesh-constraint="navmesh:.navmesh;fall:0.5;height:0;exclude:.navmesh-hole;"
+        movement-controls="speed:.25;camera:#camera"
+        position="-0.25 0 0.25" 
+      >
+        <a-entity 
+          id="camera"
+          camera="near:0.1"
+          look-controls="pointerLockEnabled: true"
+          position="0 1.5 0"
+          origin-on-ar-start
+          >
+        </a-entity>
+        <a-entity laser-controls="hand: left" raycaster="far:Infinity;objects:.collidable" smooth-locomotion="target: #cameraRig; reference: #camera"></a-entity>
+        <a-entity laser-controls="hand: right" raycaster="far:Infinity;objects:.collidable" smooth-turn="target:#cameraRig; reference:#camera"></a-entity>
+        <a-xykeyboard scale="0.3 0.3 0.3" position="0 0.3 1" rotation="-30 0 0"></a-xykeyboard>        
+      </a-entity>
+      <a-gltf-model id="stage" src="#apartment" rotation="0 0 0"></a-gltf-model>
+      <!-- <a-entity gltf-part="src: #apartment; part: apartmentDoor001;" position="-1.5 1 2.15" rotation="90 0 0" id="secondPuzzleDoor"></a-entity>
+      <a-entity gltf-part="src: #apartment; part: apartmentDoor;" position="2.0 1.025 2.2" rotation="90 0 0" id="firstPuzzleDoor"></a-entity>
+      <a-entity gltf-part="src: #apartment; part: apartmentDoor002;" id="finalPuzzleDoor"></a-entity> -->
+
+      <a-gltf-model class="navmesh" id="stage_navmesh" src="#apartment_navmesh" rotation="0 0 0" visible="false"></a-gltf-model>
+    </a-scene>  
+    <script>
+      AFRAME.registerComponent('gltf-hide', {
+        schema: {
+        parts: {
+          default: []
+        }
+      },
+        init: function () {
+          this.el.addEventListener('model-loaded', () => {
+            // console.log(this.el.components["gltf-model"].model.getObjectByName("apartmentDoor001"));
+            var model = this.el.components["gltf-model"].model;
+            var parts = this.data.parts;
+            console.log(parts);
+            for (var i = 0; i < parts.length; i++) {
+              var part = model.getObjectByName(parts[i]);
+              if (part) {
+                part.visible = false;
+              }
+            }
+        });
+      }
+    });
+    </script>
+  </body>
+</html>
