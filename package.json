@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "aframe-gltf-part-component": "^1.2.0",
     "open-easyrtc": "^2.0.20",
     "socket.io": "^4.7.4",
     "tailwind-fontawesome": "^0.3.2"

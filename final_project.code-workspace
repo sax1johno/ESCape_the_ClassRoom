@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "backend/recast-navigation-js/apps/navmesh-website/dist"
+		}
+	],
+	"settings": {}
+}
