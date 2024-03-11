@@ -3,16 +3,15 @@
     "version": "0.0.1",
     "description": "A web framework based on Networked-AFrame for multi-user escape rooms.",
     "homepage": "",
-    "main": "src/index.js",
     "authors": [
         "John O'Connor <sax1johno@gmail.com>",
         "Hayden Lee <haydenjameslee@gmail.com>"
     ],
     "license": "ISC",
     "scripts": {
-      "dev": "cross-env NODE_ENV=development node ./server/easyrtc-server.js",
+      "dev": "cross-env NODE_ENV=development node ./easyrtc-server.js",
       "lint": "eslint server *.js",
-      "start": "node ./server/easyrtc-server.js",
+      "start": "node ./easyrtc-server.js",
       "test": "karma start ./tests/unit/karma.conf.js",
       "test:firefox": "karma start ./tests/unit/karma.conf.js --browsers Firefox",
       "test:chrome": "karma start ./tests/unit/karma.conf.js --browsers Chrome"
