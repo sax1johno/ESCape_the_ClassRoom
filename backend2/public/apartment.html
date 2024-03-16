@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ESCape the ClassRoom: Apartment Demo</title>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
+    <!-- environment: Pretty stage presets. -->
+    <script src="https://unpkg.com/aframe-environment-component@2.0.0/dist/aframe-environment-component.min.js"></script>
+    <!-- proxy-event: Declaratively capture and event and reroute it to another entity. -->
+    <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script>
+    <!-- render-order: Control rendering order for transparent objects. -->
+    <script src="https://unpkg.com/aframe-render-order-component@1.0.0/dist/aframe-render-order-component.min.js"></script>
+    <!-- state: Manage application state and bind it to parts of the application to automatically react to state changes. -->
+    <script src="https://unpkg.com/aframe-state-component@6.6.0/dist/aframe-state-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.2.0/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-gltf-part-component/dist/aframe-gltf-part-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/physx@latest/dist/physx.min.js"></script>    
+    <script>
+      // Remove nav-mesh component from aframe-extras.
+      delete AFRAME.components['nav-mesh']
+    </script>
+    <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
+    <script src="https://binzume.github.io/aframe-xylayout/dist/xylayout-all.min.js"></script>    
+    <script src="https://unpkg.com/aframe-locomotion@0.2.0/dist/aframe-locomotion.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.5.0/socket.io.slim.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/open-easyrtc@2.0.20/api/easyrtc.js"></script>
+    <script src="https://unpkg.com/networked-aframe@^0.12.0/dist/networked-aframe.min.js"></script>
+    <!-- <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>     -->
+    <!-- <script src="/js/aframe-components/simple-navmesh-constraint.js"></script> -->
+    <!-- <script src="/js/aframe-components/game-state-machine.js"></script> -->
+    <script src="/js/esccl8.js"></script>
+  </head>
+  <body>
+    <a-scene     
+      renderer="alpha:true;physicallyCorrectLights:true;colorManagement:true;exposure:2;toneMapping:ACESFilmic;"    
+      reflection="directionalLight:#dirlight;"      
+      raycaster="objects:.collidable;far:5500;"      
+      cursor__mouse="rayOrigin: mouse"
+      cursor__xrselect="rayOrigin: xrselect"
+      webxr="overlayElement:#dom-overlay;"
+      gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/versioned/decoders/1.5.6/;"
+      xr-mode-ui="XRMode:xr"
+      networked-scene="
+        room: default;
+        adapter: wseasyrtc;
+        debug: true;
+        "
+    >
+    <!-- physx="autoLoad: true; delay: 1000; wasmUrl: https://cdn.jsdelivr.net/gh/c-frame/physx@v0.1.0/wasm/physx.release.wasm; useDefaultScene: false;" -->
+
+      <a-assets>
+        <a-asset-item crossorigin="anonymous" id="apartment" src="./3dmodels/low_poly__apartment/ApartmentScene.glb"></a-asset-item>
+        <a-asset-item crossorigin="anonymous" id="apartment_navmesh" src="./3dmodels/low_poly__apartment/navmesh.gltf"></a-asset-item>
+        <a-asset-item crossorigin="anonymous" id="apartment_navmesh_nodoors" src="./3dmodels/low_poly__apartment/navmesh_nodoors.gltf"></a-asset-item>
+        <a-asset-item crossorigin="anonymous" id="skybox" src="./images/skybox.jpg"></a-asset-item>
+      </a-assets>
+      <!-- <a-sky material="shader: gradient; topColor: 200 200 200; bottomColor: 150 150 150"></a-sky>       -->
+      <a-entity
+        id="cameraRig" 
+        simple-navmesh-constraint="navmesh:.navmesh;fall:0.5;height:0;exclude:.navmesh-hole;"
+        movement-controls="speed:.25;camera:#camera"
+        position="2.0 0.2 5.4" 
+      >
+        <a-entity 
+          id="camera"
+          camera="near:0.1"
+          look-controls="pointerLockEnabled: true"
+          position="0 1.5 0"
+          origin-on-ar-start
+          >
+        </a-entity>
+        <a-entity laser-controls="hand: left" raycaster="far:Infinity;objects:.collidable" smooth-locomotion="target: #cameraRig; reference: #camera"></a-entity>
+        <a-entity laser-controls="hand: right" raycaster="far:Infinity;objects:.collidable" smooth-turn="target:#cameraRig; reference:#camera"></a-entity>
+        <a-xykeyboard scale="0.3 0.3 0.3" position="0 0.3 1" rotation="-30 0 0"></a-xykeyboard>        
+      </a-entity>
+      <a-gltf-model 
+        id="stage" 
+        src="#apartment" 
+        rotation="0 0 0"
+        gltf-hide="parts:apartmentDoor001,apartmentDoor002,apartmentDoor"
+      ></a-gltf-model>
+      <!-- animate-on-game-event__room2="state: xstate.done.state.room2;action:apartmentDoor.002_open;" -->
+      <a-entity gltf-part-custom="src: #apartment; part: apartmentDoor001;" id="firstPuzzleDoor">
+        <a-plane class="navmesh-hole" position="0 0 -1" rotation="0 0 0" width="1" height="0.5" visible="false"></a-plane>
+        <!-- Button for triggering puzzle 1 to be complete -->
+        <a-plane rotation="90 0 0" position="0 -0.1 1.3" width="0.5" height="0.5" color="red" visible="true"></a-plane>
+        <a-plane id="briefing-pane" rotation="90 0 0" material="shader: flat; opacity: 0.85" position="0 -2 0.5" width="1.5" height="1.5" color="green" visible="true"></a-plane>
+      </a-entity>
+      <a-entity gltf-part-custom="src: #apartment; part: apartmentDoor;" id="secondPuzzleDoor">
+        <a-plane class="navmesh-hole" position="0 0 -1" rotation="0 0 0" width="1" height="0.5" visible="false"></a-plane>
+      </a-entity>
+      <a-entity gltf-part-custom="src: #apartment; part: apartmentDoor002;" id="exitDoor">
+        <a-plane class="navmesh-hole" position="0 0 -1" rotation="0 0 0" width="1" height="0.5" visible="false"></a-plane>
+      </a-entity>
+      <a-gltf-model class="navmesh" id="stage_navmesh" src="#apartment_navmesh_nodoors" rotation="0 0 0" visible="false"></a-gltf-model>
+      <a-entity id="game-state-manager" custom-game-state-actions></a-entity>
+      <a-entity id="room1" game-state="type: room; name: room1; onDone:room1complete"></a-entity>
+      <a-entity id="room2" game-state="type: room; name: room2; onDone:room2complete"></a-entity>
+      <a-entity id="finalRoom" game-state="type: room; name: finalRoom; onDone: finalCoomComplete"></a-entity>
+      <a-entity id="room1puzzle1" game-state="type: puzzle; name: puzzle1; room: room1"></a-entity>
+      <a-entity id="room2puzzle1" game-state="type: puzzle; name: puzzle1; room: room2"></a-entity>
+      <a-entity id="room3puzzle1" game-state="type: puzzle; name: puzzle1; room: finalRoom"></a-entity>
+    </a-scene>
+    <script>
+      AFRAME.registerComponent("briefing-panel", {
+        init: function() {
+          this.el.addEventListener("click", function() {
+            console.log("Briefing panel clicked");
+            this.el.remove();
+          });
+        }
+      })
+      // Start the game state machine when the scene is loaded.
+      document.querySelector('a-scene').addEventListener('loaded', function () {
+        this.systems['game-state'].start();
+        this.el.emit("game-state-event", "loaded");
+      });
+      // Add actions to the state machine for this application.
+      AFRAME.registerComponent("custom-game-state-actions", {
+        init: function() {
+          this.el.sceneEl.systems['game-state'].addActions({
+            room1complete: function({context, event}) {
+              console.log('Room 1 complete');
+              document.querySelector("#firstPuzzleDoor .navmesh-hole").remove();
+              document.querySelector("#firstPuzzleDoor").setAttribute("visible", "false");
+            },
+            room2complete: function({context, event}) {
+              console.log('Room 2 complete');
+              document.querySelector("#secondPuzzleDoor .navmesh-hole").remove();
+              document.querySelector("#secondPuzzleDoor").setAttribute("visible", "false");          
+            },
+            finalCoomComplete: function({context, event}) {
+              console.log('Final Room complete');
+              document.querySelector("#exitDoor .navmesh-hole").remove();
+              document.querySelector("#exitDoor").setAttribute("visible", "false");          
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

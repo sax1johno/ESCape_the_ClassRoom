@@ -4,5 +4,9 @@
     "open-easyrtc": "^2.0.20",
     "socket.io": "^4.7.4",
     "tailwind-fontawesome": "^0.3.2"
+  },
+  "scripts": {
+    "navmesh": "cd ./recast-navigation-js/apps/navmesh-website && yarn run build && yarn run dev",
+    "server": "cd ./backend2 && npm start"
   }
 }

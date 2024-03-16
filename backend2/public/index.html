@@ -26,8 +26,9 @@
     <script src="https://cdn.jsdelivr.net/npm/open-easyrtc@2.0.20/api/easyrtc.js"></script>
     <script src="https://unpkg.com/networked-aframe@^0.12.0/dist/networked-aframe.min.js"></script>
     <!-- <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>     -->
-    <script src="/js/aframe-components/simple-navmesh-constraint.js"></script>
-    <script src="/js/aframe-components/game-state-machine.js"></script>
+    <!-- <script src="/js/aframe-components/simple-navmesh-constraint.js"></script> -->
+    <!-- <script src="/js/aframe-components/game-state-machine.js"></script> -->
+    <script src="/js/esccl8.js"></script>
   </head>
   <body>
     <a-scene     
@@ -38,11 +39,6 @@
       webxr="overlayElement:#dom-overlay;"
       gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/versioned/decoders/1.5.6/;"
       xr-mode-ui="XRMode:xr"
-      networked-scene="
-        room: default;
-        adapter: wseasyrtc;
-        debug: true;
-        "
     >
       <a-assets>
         <a-asset-item crossorigin="anonymous" id="apartment" src="./3dmodels/low_poly__apartment/ApartmentScene.glb"></a-asset-item>
@@ -51,51 +47,31 @@
       <!-- <a-sky material="shader: gradient; topColor: 200 200 200; bottomColor: 150 150 150"></a-sky>       -->
       <a-entity 
         id="cameraRig" 
-        simple-navmesh-constraint="navmesh:.navmesh;fall:0.5;height:0;exclude:.navmesh-hole;"
         movement-controls="speed:.25;camera:#camera"
         position="-0.25 0 0.25" 
       >
+
         <a-entity 
           id="camera"
           camera="near:0.1"
           look-controls="pointerLockEnabled: true"
           position="0 1.5 0"
           origin-on-ar-start
+          animation="property: rotation; to: 0 360; easing: linear; loop: true; dur: 200000"
           >
         </a-entity>
         <a-entity laser-controls="hand: left" raycaster="far:Infinity;objects:.collidable" smooth-locomotion="target: #cameraRig; reference: #camera"></a-entity>
         <a-entity laser-controls="hand: right" raycaster="far:Infinity;objects:.collidable" smooth-turn="target:#cameraRig; reference:#camera"></a-entity>
         <a-xykeyboard scale="0.3 0.3 0.3" position="0 0.3 1" rotation="-30 0 0"></a-xykeyboard>        
       </a-entity>
-      <a-gltf-model id="stage" src="#apartment" rotation="0 0 0"></a-gltf-model>
+      <a-gltf-model id="stage" src="#apartment" rotation="0 0 0" animate=""></a-gltf-model>
       <!-- <a-entity gltf-part="src: #apartment; part: apartmentDoor001;" position="-1.5 1 2.15" rotation="90 0 0" id="secondPuzzleDoor"></a-entity>
       <a-entity gltf-part="src: #apartment; part: apartmentDoor;" position="2.0 1.025 2.2" rotation="90 0 0" id="firstPuzzleDoor"></a-entity>
       <a-entity gltf-part="src: #apartment; part: apartmentDoor002;" id="finalPuzzleDoor"></a-entity> -->
 
-      <a-gltf-model class="navmesh" id="stage_navmesh" src="#apartment_navmesh" rotation="0 0 0" visible="false"></a-gltf-model>
+      <!-- <a-gltf-model class="navmesh" id="stage_navmesh" src="#apartment_navmesh" rotation="0 0 0" visible="false"></a-gltf-model> -->
     </a-scene>  
     <script>
-      AFRAME.registerComponent('gltf-hide', {
-        schema: {
-        parts: {
-          default: []
-        }
-      },
-        init: function () {
-          this.el.addEventListener('model-loaded', () => {
-            // console.log(this.el.components["gltf-model"].model.getObjectByName("apartmentDoor001"));
-            var model = this.el.components["gltf-model"].model;
-            var parts = this.data.parts;
-            console.log(parts);
-            for (var i = 0; i < parts.length; i++) {
-              var part = model.getObjectByName(parts[i]);
-              if (part) {
-                part.visible = false;
-              }
-            }
-        });
-      }
-    });
     </script>
   </body>
 </html>
