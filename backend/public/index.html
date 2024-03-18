@@ -59,6 +59,14 @@
           origin-on-ar-start
           animation="property: rotation; to: 0 360; easing: linear; loop: true; dur: 200000"
           >
+          <a-plane material="shader: flat; color: black; opacity: 0.5" rotation="0 0 0" position="0 0 -1" width="1" height="1" visible="true">
+            <a-xycontainer direction="column" width="1" height="0.9" >
+              <a-xylabel value="Welcome to!" width="0.95" height="0.1"></a-xylabel>
+              <a-xylabel value="ESCape the ClassRoom." width="0.95" height="0.1"></a-xylabel>
+              <a-xylabel value="" width="0.95" height="0.2"></a-xylabel>
+              <a-xybutton color="green" label="START" start-game width="1" height="0.1" ></a-xybutton>
+            </a-xycontainer>
+          </a-plane>  
         </a-entity>
         <a-entity laser-controls="hand: left" raycaster="far:Infinity;objects:.collidable" smooth-locomotion="target: #cameraRig; reference: #camera"></a-entity>
         <a-entity laser-controls="hand: right" raycaster="far:Infinity;objects:.collidable" smooth-turn="target:#cameraRig; reference:#camera"></a-entity>
@@ -72,6 +80,18 @@
       <!-- <a-gltf-model class="navmesh" id="stage_navmesh" src="#apartment_navmesh" rotation="0 0 0" visible="false"></a-gltf-model> -->
     </a-scene>  
     <script>
+      AFRAME.registerComponent('start-game', {
+        init: function () {
+          this.el.addEventListener('click', function (evt) {
+            window.location.href = "/apartment.html";
+
+            // document.querySelector('#camera').removeAttribute('animation');
+            // document.querySelector('#camera').removeAttribute('position');
+            // document.querySelector('#camera').removeAttribute('look-controls');
+            // document.querySelector('#camera').removeAttribute('origin-on-ar-start
+          })
+        }
+      });
     </script>
   </body>
 </html>

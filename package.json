@@ -7,6 +7,6 @@
   },
   "scripts": {
     "navmesh": "cd ./recast-navigation-js/apps/navmesh-website && yarn run build && yarn run dev",
-    "server": "cd ./backend2 && npm start"
+    "server": "cd ./backend && npm start"
   }
 }

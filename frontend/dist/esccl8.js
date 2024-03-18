@@ -5985,7 +5985,7 @@ AFRAME.registerSystem("game-state", {
     }));
     // Create subscriptions that allow updates when game state machine updates.
     this.service.subscribe(function (state) {
-      console.log("Game State Machine Updated", state.value);
+      // console.log("Game State Machine Updated", state.value);
       _this.el.emit("game-state-updated", state);
     });
     this.el.addEventListener("game-state-event", function (event) {
@@ -6063,6 +6063,52 @@ AFRAME.registerComponent("remove-on-game-event", {
     });
   }
 });
+AFRAME.registerComponent("disable-movement-in-states", {
+  schema: {
+    "states": {
+      type: "array",
+      required: true
+    }
+  },
+  init: function init() {
+    var _this3 = this;
+    console.log("States to disable movement in", this.data.states);
+    this.el.sceneEl.addEventListener("game-state-updated", function (event) {
+      if (_this3.data.states.includes(event.detail.value)) {
+        _this3.previousState = _this3.el.getAttribute("motionControls");
+        _this3.el.setAttribute("motionControls", "enabled", false);
+      } else {
+        if (_this3.previousState) {
+          _this3.el.setAttribute("motionControls", _this3.previousState);
+          _this3.previousState = null;
+        }
+      }
+    });
+  }
+});
+AFRAME.registerComponent("show-in-state", {
+  schema: {
+    state: {
+      type: "string",
+      required: true
+    },
+    hideOtherwise: {
+      type: "boolean",
+      "default": false
+    }
+  },
+  init: function init() {
+    var _this4 = this;
+    this.el.sceneEl.addEventListener("game-state-updated", function (event) {
+      console.log("game-state-updated in show-in-state", event.detail.value);
+      if (event.detail.matches(_this4.data.state)) {
+        _this4.el.setAttribute("visible", true);
+      } else if (_this4.data.hideOtherwise && _this4.el.getAttribute("visible")) {
+        _this4.el.setAttribute("visible", false);
+      }
+    });
+  }
+});
 /**
  * Hides the given gltf part when a game event occurs.
  */
@@ -6078,7 +6124,7 @@ AFRAME.registerComponent("hide-part-on-game-event", {
     }
   },
   init: function init() {
-    var _this3 = this;
+    var _this5 = this;
     // var self = this;
     // this.el.addEventListener('model-loaded', () => {
     // console.log(this.el.components["gltf-model"].model.getObjectByName("apartmentDoor001"));
@@ -6094,12 +6140,12 @@ AFRAME.registerComponent("hide-part-on-game-event", {
     // });
 
     document.querySelector("a-scene").addEventListener("game-notify-event", function (event) {
-      console.log(_this3.data.parts);
-      console.log(_this3.data.state);
-      if (event.detail.type == _this3.data.state) {
+      console.log(_this5.data.parts);
+      console.log(_this5.data.state);
+      if (event.detail.type == _this5.data.state) {
         console.log("Game-notify-event in hide-on-game-event", event.detail);
-        var model = _this3.el.components["gltf-model"].model;
-        var parts = _this3.data.parts;
+        var model = _this5.el.components["gltf-model"].model;
+        var parts = _this5.data.parts;
         for (var i = 0; i < parts.length; i++) {
           var part = model.getObjectByName(parts[i]);
           if (part) {
@@ -6129,15 +6175,15 @@ AFRAME.registerComponent("animate-on-game-event", {
     // target: {type: "selector", required: true},
   },
   init: function init() {
-    var _this4 = this;
+    var _this6 = this;
     console.log("event = ", this.data.state, " and action = ", this.data.action);
     // Listen on the scene for game state updates.
     document.querySelector("a-scene").addEventListener("game-notify-event", function (event) {
       // console.log("Listening for game state event", event.detail);
-      if (event.detail.type == _this4.data.state) {
+      if (event.detail.type == _this6.data.state) {
         console.log("Animation on game event triggered by event", event.detail);
-        _this4.el.setAttribute("animation-mixer", {
-          "clip": _this4.data.action,
+        _this6.el.setAttribute("animation-mixer", {
+          "clip": _this6.data.action,
           "loop": "once",
           "clampWhenFinished": "true"
         });

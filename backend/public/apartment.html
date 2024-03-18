@@ -15,12 +15,12 @@
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.2.0/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-gltf-part-component/dist/aframe-gltf-part-component.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/physx@latest/dist/physx.min.js"></script>    
+    <script src="https://binzume.github.io/aframe-xylayout/dist/xylayout-all.min.js"></script>
     <script>
       // Remove nav-mesh component from aframe-extras.
       delete AFRAME.components['nav-mesh']
     </script>
     <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
-    <script src="https://binzume.github.io/aframe-xylayout/dist/xylayout-all.min.js"></script>    
     <script src="https://unpkg.com/aframe-locomotion@0.2.0/dist/aframe-locomotion.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.5.0/socket.io.slim.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/open-easyrtc@2.0.20/api/easyrtc.js"></script>
@@ -59,6 +59,7 @@
         id="cameraRig" 
         simple-navmesh-constraint="navmesh:.navmesh;fall:0.5;height:0;exclude:.navmesh-hole;"
         movement-controls="speed:.25;camera:#camera"
+        disable-movement-in-states="states:running.briefing,running.paused,running.gameover"
         position="2.0 0.2 5.4" 
       >
         <a-entity 
@@ -83,14 +84,25 @@
       <a-entity gltf-part-custom="src: #apartment; part: apartmentDoor001;" id="firstPuzzleDoor">
         <a-plane class="navmesh-hole" position="0 0 -1" rotation="0 0 0" width="1" height="0.5" visible="false"></a-plane>
         <!-- Button for triggering puzzle 1 to be complete -->
-        <a-plane rotation="90 0 0" position="0 -0.1 1.3" width="0.5" height="0.5" color="red" visible="true"></a-plane>
-        <a-plane id="briefing-pane" rotation="90 0 0" material="shader: flat; opacity: 0.85" position="0 -2 0.5" width="1.5" height="1.5" color="green" visible="true"></a-plane>
+        <a-xybutton value="solve puzzle 1" show-in-state="state: running.room1; hideOtherwise: true" puzzle1solved-example rotation="90 0 0" position="0 -0.1 1.3" width="0.5" height="0.5" color="red" visible="true"></a-xybutton>
+
+        <a-plane material="shader: flat; color: black; opacity: 0.9" rotation="90 0 0" show-in-state="state: running.briefing; hideOtherwise: true" position="0 -2 0.5" width="1" height="1" visible="true">
+          <a-xycontainer direction="column" width="1" height="0.9" >
+            <a-xylabel value="Pay Attention!" width="0.95" height="0.1"></a-xylabel>
+            <a-xylabel value="Details Matter." width="0.95" height="0.1"></a-xylabel>
+            <a-xylabel value="You have 60 minutes to escape before certain doom." width="0.95" height="0.1"></a-xylabel>
+            <a-xylabel value="Solve all the puzzles to escape or face the dire consequences." width="0.95" height="0.1"></a-xylabel>
+            <a-xybutton color="green" label="Begin" briefing-dismiss width="1" height="0.1" ></a-xybutton>
+          </a-xycontainer>
+        </a-plane>
       </a-entity>
       <a-entity gltf-part-custom="src: #apartment; part: apartmentDoor;" id="secondPuzzleDoor">
         <a-plane class="navmesh-hole" position="0 0 -1" rotation="0 0 0" width="1" height="0.5" visible="false"></a-plane>
+        <a-xybutton show-in-state="state: running.room2; hideOtherwise: true" value="solve puzzle 1" puzzle1solved-example rotation="-90 0 0" position="0 0.15 1.5" width="0.5" height="0.5" color="red" visible="true"></a-xybutton>
       </a-entity>
       <a-entity gltf-part-custom="src: #apartment; part: apartmentDoor002;" id="exitDoor">
         <a-plane class="navmesh-hole" position="0 0 -1" rotation="0 0 0" width="1" height="0.5" visible="false"></a-plane>
+        <a-xybutton show-in-state="state: running.finalRoom; hideOtherwise: true" value="solve puzzle 1" puzzle1solved-example rotation="-90 0 0" position="0 0.15 1.3" width="0.5" height="0.5" color="red" visible="true"></a-xybutton>
       </a-entity>
       <a-gltf-model class="navmesh" id="stage_navmesh" src="#apartment_navmesh_nodoors" rotation="0 0 0" visible="false"></a-gltf-model>
       <a-entity id="game-state-manager" custom-game-state-actions></a-entity>
@@ -102,19 +114,52 @@
       <a-entity id="room3puzzle1" game-state="type: puzzle; name: puzzle1; room: finalRoom"></a-entity>
     </a-scene>
     <script>
-      AFRAME.registerComponent("briefing-panel", {
-        init: function() {
-          this.el.addEventListener("click", function() {
-            console.log("Briefing panel clicked");
-            this.el.remove();
-          });
-        }
-      })
+      // AFRAME.registerComponent("briefing-panel", {
+      //   init: function() {
+      //     this.el.addEventListener("click", function() {
+      //       console.log("Briefing panel clicked");
+      //       this.el.remove();
+      //     });
+      //   }
+      // })
       // Start the game state machine when the scene is loaded.
       document.querySelector('a-scene').addEventListener('loaded', function () {
         this.systems['game-state'].start();
-        this.el.emit("game-state-event", "loaded");
+        this.emit("game-state-event", "loaded");
       });
+
+      AFRAME.registerComponent("briefing-dismiss", {
+        init: function() {
+          var el = this.el;
+          var cb = function() {
+            console.log("Briefing panel clicked");
+            // End the briefing.
+            el.removeEventListener("click", cb);
+            el.emit("game-state-event", "end");
+            // el.remove();
+          }
+          this.el.addEventListener("click", cb);
+        }
+      });
+
+      // TODO: Make one of these for each puzzle.
+      AFRAME.registerComponent("puzzle1solved-example", {
+        init: function() {
+          var el = this.el;
+          var cb = function() {
+            console.log("Room 1 Puzzle 1 clicked");
+            // End the briefing.
+            el.removeEventListener("click", cb);
+            el.setAttribute("material", {
+              "color": "green"
+            });
+            el.sceneEl.emit("game-state-event", "puzzle1.solved");
+            // el.remove();
+          }
+          this.el.addEventListener("click", cb);
+        }
+      });
+
       // Add actions to the state machine for this application.
       AFRAME.registerComponent("custom-game-state-actions", {
         init: function() {

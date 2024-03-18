@@ -5,250 +5,250 @@ import {createMachine, createActor} from 'xstate';
 import baseGameLoop from "./base-game-loop.json";
 
 // Example complete game state machine.
-// const sampleMachine = createMachine({
-//     /** @xstate-layout N4IgpgJg5mDOIC5RQIYFswGUAuLtgFkUBjACwEsA7MAOllwCdsqoBiAGwHsUJIBtAAwBdRKAAOnWOWadKokAA9EARgCsAZhoCA7ABYATMv0A2bcuPrDAGhABPFQNM1tA5QA5jA-ercCN6gF8Am1QMHDxCEgpqGgYAV0pKFlYxFDjYMEERJBAJKRk5HKUEc10aYzc3bTcATl03ZXcK4xt7BH0vGlVjGtd1L1dPVTcgkPQsXHwiMipaeMTksEoILPk86XJZeWLVfVbEQwMaZWr+410dao9RkFCJiOnouYSkyigaACMGcjAAM2SILJaPQIjQ7uEplFZrEXixPt8-ixVjl1gVtogGtousYLOpLN0BLVlPsEOdlDQah1VDVVC4qsZVLobuDJpEZjF5q93l8fv83vDeSwAArsFC2FJpDLI8SSDZbIqIXQ1LECfHKGk4ip+VQkswCGjqCwCAS6U2G7Q45njCFsp4whb8nmIx0IvlQEVi1hLFbCNaytEKhBKlVqjU43yqHV2RDGIwG6q0-H6JVufRWsKsx7Qzlwp1ugXO92SyCsBhwOIYaW5f2bQqgYrBrSh7rh7UknH6jR6CoW5XKHzp+6Q9nPB3vBicThoZSsQExEH4MHWzNQjmw-kTqfKKuo2vokraGqaWq6VSOCwXXx7aOk3Tkyl+Gl0i2Mwc2rNrsexSfTuicdgAG4AkCdCskuGYPKuo5ct+W5-oBSK+iiNbyvWKiqI0FKmOoujaHhxo6C0N44uSwxUrh1TmLsb4riO9owZuv6wP+QH8mIcQAF4cewYDkgkzGASW7FcTx5ICQB-BITK+R7oGjR3s42gdAySnqOqxLETUNQ0BcujqC4WkWLs2g0ZBdE5huP5iSxcLCdxYD6DQ-EsUJnH2Y54mSdk0lynWigqMoCl4cptLeOpJJuNSzjKKqFwDISR6mcOdoWeOVnwax7x2TxmjOYJEApG5OUZV5foyah-klIF5LBY4oVqTUGltBo2kCDUbj9L0lIaMMSW2tm65pVO+iziBC60CyZkpYNsFoPoO4oX5xSNJUXTaIyHXtbhDRuCSgWWDpbh6cMh6no1IzBLcy5TQNX6MR5NlvKN85gZNyW3QxP4PQhbwLeVS2IL0xjlPUp4Ybsqb9ntp6OYFwxqYenixX1H7QXC90ZbZRW8U5lCeQV2U4-jf2+fuGjA6eamEgldRVNDtRYVeSr1IS9Qo1B9Ho19mNsdjjl5RJBN8yVPredW-1k4aOkaDFvi1LT2h7Qy+r6HofjVCY9ImZdb39Z+n3DTzWXY7leMuULIlgJoxNSeLpOBuT0tU3LWn1IrN79vo2k4oY61nnoGHKOz5kzYx6jPcCr3Xe9+tc1O6gkwGaHtKUFKqkp3hXPodMe3pjmg+oJ11NS7jB9Nd0-tbj1sHOkegrrqOc5Z8dG4nsnJ+4qYUi+RmBX7u257sxynh1Jw1EjOFlx9cdoFXP3G5bfFm-lhWLyLbcVctGGOZR2eBaYR51PT2nj0ztOsxdYwQTHaPN7PRs0IT-PL4Lq-uevtu7pv6FxrvDS6AfdQR8PbKxoKrC4tJUw9lMFPWOd856ZUfibXG+M37FRtmLL+AMSjb2cA0PeADDxAN0HtSw3tjC+0jDoU8jRYG33eLwPMcJGGumFKKcUqR0iZE-otfcyYOpNgwrUYReJDR7TPDVboh42pg0LnQpuDCwBMP5CwwUbwPTim9BvbB-DNCqiEe1dqoiiJtECp0GKwxTTtVpCceRqUaCqMLA4pRrD1HFgKmWWAFZuGYN4YGXRgj3CGI6niExKgaEUjUgjce3QTDyM4RkDx5ZKw8IlnJc45RKjVFpitZoJI6jaT1J1DqFxcTxPcV6ZY2j9xqDKBUKoJ4GhNA8BFcklgvbuH7FUQyqggiXUoJwXg8AcgNygmVe2ycAC0YSECTNUBSLSiylmLLUPIkETAWDjKTpVAwe1HBYg8O1PwqYWa2J1tHPW9Ctnt0qvoZMYD3BKT9oaVMww9qrSeR4Doyo8QnTsTNCg9BrnfwQGpYGhgqiq0jC8kw+T6jlDUj1YhjhzD-K-MoqAwKdFHgeZC55FRYU3l2JofasTGraHxIEc519LkKILPmDFGisX7hwuSCFTzoUEpmT0NwNBXnJhxF1YYl8ro0sbvYjF9LhTuOZYGWMmhYkGGVOtNQdzdQmmOOYE0PgOiUrRTBSVGKACiyxZXJ3ldiZMXs8LgzVcRGKOkcRnlqB0QKNR9Uz2UGayqVQsRdgqEInoAqSSq2Bn4HQV5DT9kZEyalQ5aX2MYtZfK3rloUPmUeDw6b6hNPbFFY0JhzCVCsUdD1d9k2ZVTYDfQ8z-WRSaJSABJJDSaH0oaIxegjxnipVfeN4rQ7pXEljReVaEA-K6PpANDbg32vJAW2MD5lYmjLUNJi1ckFrwFpAUdMVDATotPWw5M62g9G0qFL2oT+hNJXbNCtw77IVu3chNJHc1LkhOJ1YKwxujtnagaGt3RdhtUsEAm9SaH5P1HeOutgbG0zLwm0wk5xlQWC9q4MDg711PxQebHdXhSKTsPUGptN5IraQafiamVRS5xvfBzRNmH54bvfvjHdUS+X-zlp4ZWUY2iRV5RYNQT4SL9m1r2ujIcK5wSHbzS26goMUv3VOo9JG2inn1D0EiDJRM4WMBh6TWHkFbogHhvdMHp2qcQC1MBPs6hqDxO4Htoq+30YHQZpjhMEFPp8ts5aakyiuHMHiMwAaTQkg0Ly1wNJdO7A0AYfTc1R2q0cuyqF5MoF7JxOUfe6pz6qzE85iT5cDZzRFqZjT6pexHnMMmd2pirHYnOMmQkHUKEFdGZJkr31K3PomZVSwKtHlpZhTMxoGhInrQZDSQk28EvdfvaJUdLzcUcvS4S+rrhGv1FMCc8wenaO0WKzPebsmH04ZTb13zipzAreG1y6GvRjiGh0LU9UVI5sQexo+kzl2bnFBcPMyKd4aSpnPCcemvLKjVY6HefsFCPsyYXu5JbFRbv4oyx7bo5JIWhLuf0M8vSDs3Tgauk7SOeLP1Y79kFd5wVDfR+tlQoDTTql8OqZ7hPxOHennfMnzGKdlep9guklriV3LVh1JWSpjg0mzncmtVRY1c+J-Q2afPPMo95alhno3kxss8EAowbVaSEgR4ZuT53Bajtp2jzlGPTFkL5f0Nq1Q9Bj054V7nJO1efYt1Tnzf3EAi6DW7tq48mukOzl0EJ+lDDeDqPt5XN86Vhx3fwroACOolyx3VhwWXYwANyyzfLCWvM-YDyC3LwM6iu9TF2ku0NpctgMJeVrqtS9GzT+PDPFRC6NRz3tezE3APTfrWmInyeGMt0R-z3ibHTQ96z-32MueSgXFIjibbGtaeJ89yrlPldfdneM2xyki++9qBXw9-UcOXuMje34DvM-CbfZ3QS44qYom4UcCaa89XVpQ5qQw6NCGjj5J4Jpub3zP58zz5lCMi97Z5X6Y6xh8qqSgHeDhoe4dZHbwJH4C4n5C41JAKOTwFL6X7g4gJng6TA5s5HhDBP7m4sa4aEHpJHR8pAzh5+BAI5ymLIYy4Qzy4nRK576T6QEIILZWywHn6IEUGmJ642aqiNTfIm4irYE86rriGnbFQEEV7YL9hn6kEX4D4eyO4dTGjKiK7u4MEebIL+52xXYlABpaAdBHQJ5CYtImFR7wzBZx7EK75qHe6OJuhJYmD6hVD+x6RtSb7qCkKYSGDnjJj9Cx7+EXL9pfhBHMIuJqLujsJJZXqoERGdTREPZzrEqOA1p1TLoT4QHpFZFOIZFuJcLl72GB7tDUhnrIb7QALnAaAPbAw4TOyeAwyBQ3oNGKLGqmosHJw1paTYhKhdGb69G5ybZeAuDnhAz0HVGNwJLeYtE05-6AxAJaDHKNRgreDUjyLei7FYI1IXDlDEpAIUKpgUpNQHCezlBeCng9DdAdTj5BBAA */
-//     id: 'gameStateMachine',
-//     initial: 'starting',
-//     states: {
-//         starting: {
-//             id: 'starting',
-//             on: {
-//                 "loaded": "running"
-//             }
-//         },
-//         running: {
-//             initial: "briefing",
-//             on: {
-//                 "pause": "paused",
-//                 "end": "ended"
-//             },
-//             states: {
-//                 hist: { 
-//                     type: 'history',
-//                     history: 'deep',                    
-//                 },
-//                 briefing: {
-//                     id: 'briefing',
-//                     initial: 'briefingPlay',
-//                     states: {
-//                         briefingPlay: {
-//                             on: {
-//                                 "pause": "briefingPaused",
-//                                 "end": "briefingEnd"
-//                             }
-//                         },
-//                         briefingPaused: {
-//                             on: {
-//                                 "resume": "briefingPlay",
-//                             }
-//                         },
-//                         briefingEnd: {
-//                             type: "final"
-//                         }
-//                     },
-//                     onDone: {
-//                         target: "room1",
-//                     }
-//                 }, 
-//                 room1: {
-//                     id: 'room1',
-//                     initial: "solving",
-//                     onDone: 'room2',
-//                     states: {
-//                         "solved": {
-//                             type: "final"
-//                         },
-//                         "solving": {
-//                             type: 'parallel',
-//                             onDone: "solved",
-//                             states: {
-//                                 puzzle1: {
-//                                     initial: 'unsolved',
-//                                     states: {
-//                                         "unsolved": {
-//                                             on: {
-//                                                 "puzzle1.solved": "solved"
-//                                             }
-//                                         },
-//                                         "solved": {
-//                                             type: "final"
-//                                         }
-//                                     }
-//                                 },
-//                                 puzzle2: {
-//                                     initial: 'unsolved',
-//                                     states: {
-//                                         "unsolved": {
-//                                             on: {
-//                                                 "puzzle2.solved": "solved"
-//                                             }
-//                                         },
-//                                         "solved": {
-//                                             type: "final"
-//                                         }
-//                                     }
-//                                 },
-//                                 puzzle3: {
-//                                     initial: 'unsolved',
-//                                     states: {
-//                                         "unsolved": {
-//                                             on: {
-//                                                 "puzzle3.solved": "solved"
-//                                             }
-//                                         },
-//                                         "solved": {
-//                                             type: "final"
-//                                         }
-//                                     }                
-//                                 },
-//                             },
-//                         },
-//                     }
-//                 },
-//                 room2: {
-//                     id: 'room2',
-//                     initial: "solving",
-//                     onDone: 'room3',
-//                     states: {
-//                         "solved": {
-//                             type: "final"
-//                         },
-//                         "solving": {
-//                             type: 'parallel',
-//                             onDone: "solved",
-//                             states: {
-//                                 puzzle1: {
-//                                     initial: 'unsolved',
-//                                     states: {
-//                                         "unsolved": {
-//                                             on: {
-//                                                 "puzzle1.solved": "solved"
-//                                             }
-//                                         },
-//                                         "solved": {
-//                                             type: "final"
-//                                         }
-//                                     }
-//                                 },
-//                                 puzzle2: {
-//                                     initial: 'unsolved',
-//                                     states: {
-//                                         "unsolved": {
-//                                             on: {
-//                                                 "puzzle2.solved": "solved"
-//                                             }
-//                                         },
-//                                         "solved": {
-//                                             type: "final"
-//                                         }
-//                                     }
-//                                 },
-//                                 puzzle3: {
-//                                     initial: 'unsolved',
-//                                     states: {
-//                                         "unsolved": {
-//                                             on: {
-//                                                 "puzzle3.solved": "solved"
-//                                             }
-//                                         },
-//                                         "solved": {
-//                                             type: "final"
-//                                         }
-//                                     }                
-//                                 },
-//                             },
-//                         },
-//                     }
-//                 },
-//                 room3: {
-//                     id: 'room3',
-//                     initial: "solving",
-//                     onDone: 'debriefing',
-//                     states: {
-//                         "solved": {
-//                             type: "final"
-//                         },
-//                         "solving": {
-//                             type: 'parallel',
-//                             onDone: "solved",
-//                             states: {
-//                                 puzzle1: {
-//                                     initial: 'unsolved',
-//                                     states: {
-//                                         "unsolved": {
-//                                             on: {
-//                                                 "puzzle1.solved": "solved"
-//                                             }
-//                                         },
-//                                         "solved": {
-//                                             type: "final"
-//                                         }
-//                                     }
-//                                 },
-//                                 puzzle2: {
-//                                     initial: 'unsolved',
-//                                     states: {
-//                                         "unsolved": {
-//                                             on: {
-//                                                 "puzzle2.solved": "solved"
-//                                             }
-//                                         },
-//                                         "solved": {
-//                                             type: "final"
-//                                         }
-//                                     }
-//                                 },
-//                                 puzzle3: {
-//                                     initial: 'unsolved',
-//                                     states: {
-//                                         "unsolved": {
-//                                             on: {
-//                                                 "puzzle3.solved": "solved"
-//                                             }
-//                                         },
-//                                         "solved": {
-//                                             type: "final"
-//                                         }
-//                                     }                
-//                                 },
-//                             },
-//                         },
-//                     }
-//                 },
-//                 debriefing: {
-//                     id: 'debriefing',
-//                     type: 'final',
-//                     initial: 'debriefingPlay',
-//                     states: {
-//                         debriefingPlay: {
-//                             on: {
-//                                 "pause": "debriefingPaused",
-//                                 "end": "debriefingEnd"
-//                             }
-//                         },
-//                         debriefingPaused: {
-//                             on: {
-//                                 "resume": "debriefingPlay",
-//                             }
-//                         },
-//                         debriefingEnd: {
-//                             type: "final"
-//                         }
-//                     },
-//                 },     
-//             }
-//         },
-//         paused: {
-//             on: {
-//                 "resume": "running.hist",
-//                 "end": "ended"
-//             }
-//         },
-//         ended: {
-//             type: "final"
-//         }
-//     }
-// });
+const sampleMachine = createMachine({
+    /** @xstate-layout N4IgpgJg5mDOIC5RQIYFswGUAuLtgFkUBjACwEsA7MAOllwCdsqoBiAGwHsUJIBtAAwBdRKAAOnWOWadKokAA9EARgCsAZhoCA7ABYATANX6AnAIBsJgBzaTAGhABPFRas0Nxq7uUCf2-boAvoEOqBg4eIQkFNQ0DACulJQsrGIo8bBggiJIIBJSMnK5SgjK5ro05lbVRpa66h7qDs4Ihso02g3m-vrq2mWq2trBoehYuPhEZFS0CUkpYJQQ2fL50uSy8iXGzYj6yvVaymW2ytbHIyBh45FTMbOJyZRQNABGDORgAGYpELK09EiNGuEUm0RmcUeLDeH2+LBWuTWhS2iCsym07nM5T6Z2qql02l2CHK+g6GhM5WO6jMaMuIImUWmsTmTxe70+P2eMI5LAACuwUI5UulMgjxJJ1ptiohdCYMQJ1Ppycp9Poqmcif0BB1bJZygJdKobCY6WNQYz7pD5lz2XCbbDOVB+YLWItlsJVhLkdKELL5Yrlar1fYnIhzMcaCqrOGrAECVZ1EEQlczQy7hCWdDbY7uXanSLIKwGHB4hgxXkvRsiqASn6tAHqSq1WiQy0sdqTPj0boe31o+pTeE0+DmVCuQxOJw0MpWH9YoD8MDU7cRw9rS8J1PlOWkVWUaVbJorCZDQIE1jtKoBK2wwYydTKcpqWflIObmCmWvWXFJ9O6Jx2AAN1+f46AZJchxXT8rW-Tc-1gADgOeHdKylGsVFUCMKU6TtFWsbRjyJLFSW8LstSsI19CsN9zXTUd1x-Ld-yA6ExHiAAvdj2DAdpEgQoDCzYzjuPafjAP4D1EVQ6tFBUA52iGfZ1GOfp1GqTUBG1XohgsM51B0RMaOHaDM3HX9RMQ1iOK4sBST4xDBOs7jSTEiScnFAo9x9Y5vB1JSVKfdTQwQaNtXxPpnwo2VVSMqDLVMjdzOYpCXiEmzNHsgSIFSJywE0Vz3XcitPLQ2TSnkvynwCtSrCJckaBMZTzGfcwAg8WKP3isdEqnfRZ1AhdaHpOKM26xi0H0FCSpkkpjmqdxL3xK9dGqKiiQOdRNGUoYNHDRqDWo5Nhs60aGLglzLOefr53A46LVO2DfwuljkMkjzJRmxAzHMSoVqvQZVEGPR1sNUk5RMVVlpMRqk1GSCTvox7euSqzhJ4mhMvE7K0pE5K3M9ab912mhDSagiNF0cwNBBswaCsXxMO8RMDFUDr7sR6FzpRrkcdsjHKAKnK0eerGpo+on1B+0mTgoxMqaaYKBnaPxdB0HsFX01mjuXBGv05p7udS3KMoFhzseNvHCoJ8WfWJ6XullynqcVzbtVlQHMIVYxWq1uH33ZvWzKndRroBW6dYDmD9eDsXvXQ1oygqMw+ma7QDUlgR9BBzaaG2y9Jb0g62bowOerQfLLrYOcw6BO6S6joPy8N2OvPj5RVoa7QsSvC8VtjEHjE7iGlQNaHDO1+HI4S8aK5eo20d402sqFmyLKylvStmzDSQIwKqbPaHLxp7V6bUeTmaVYvVwbsvZ5SmhebspesZX5zLY3z7Sm3jo0TU-fjzlKodaVNlZqzVqrV2vsUyT3rtPOCd9UbpX5oLXmd98ZSUJt5b+u8-5XgAUfF2+kSadkBj4BoapL4T39rAsavBszQjoQ6PkAohRpAyFkN6xUbbxwCAmesxgCSNS8OiBWLQ1CZ3cGYM4qhzAWCdodP2tFr7T0YTyLkqi8zOiFG6D++5eGaC9gEQ8wjOggwkY1EwZ8qgrVasMKhSiTK0LAPQ9RzimHPF5AWbKxZYClg4UVXcm89grQMeQwRalvCmMVqDDo5RuiS0NFiWG0DqHXzYZkbxJYyycMCZ-ROlRqj0xkSeBopSiSdjCvUTo0YDg9hNPY4ylp0mFh0Tk6S+41AVCqDUYp9RGhEjRLnVUliqYBHbkYAclxKCcF4PAXIddVzWzjmVAAtOYIkaytCaW2Ts7Zgwr7QUBEwFgSzW5lQMOtVwHQFRqnRLvDWByurrlOUE1oAQaD7BsASAiZ4+nrWPJiY4J4zi6mqY8h60IKD0BeZ-JqHz256CGPTLwDRymyhJuUTs3gzxBkmYoxpEL7RqKgDCvRjV4VfKRb81FwVjA7zVBDSwCpVY6HBRzIleZcyOi0aSn0iZ2ifMRT8lFQDgpp21DoTwARTCNXHvika7K2TuKVcSzx7CIC8vjuGTQMilS9ETF4CkoqWhp1ULndsuoCRlDOGy0uXKszKoAKJLE1WVbVmI9WbRWrKKmREfBaFlAmKiENLy+FtTfcayhXUlBsBiDQSLvVKhRUSfQXc6bCM0gipqCiUkOKeUjeCZto0qB9g1GqJxuxqnWcFKmJg6YNGsLpA1nZw1wKSmJE5GDuFlQhma+NBFE1GnqESBJHydCaXDF3LErVW1jTgmve+vMo1duWSUOUOq+gDq8Em4dNaIwJlUCef6KKeyzrOu2yuD9cqLwKsW0omd2j9q8NuodojEDipJrUBMNhfAGn0GegtC7EG41vSus5s1lLK06LpWMc1jVhmhpGI0w81AERPP+hpCq7XzsNle4Wd713uE3c+lmyaxX+EjAYXwnyzD4mSQsxx56mIdp5rlJ+oH3qrpcPsIjCaX1kZaKFDoAVug+2GQB6Oha554ZsiLSAd6qpHjRLKMmVr4MhUPRi92-0FQqnqfK3WEacMsfnulAjnReNbtI7ulohpH0ytlAqWwARugScbkB1jaMTYca4Vx+9PGn2DoE4gfEEroaHopIYNSDQ3Nlw86Z7iaCNVgdeVVCovh0QKiqEYJadU1J008IDTO-g9Cvkw4ZttvU72ptJIK75yK-mKwsBiHs9NTzKc6Hi3NBLFXjTk8lzj4HuPaj2rLakFS+gD21ON2Mqb9oGAwwZqec6DYmbvYqLSCL6vUvU8cfEOprzGgMJ0dusW+u4aXetqoFKhUNZpWI1WpIZu9ujKYaMZ2uYmZk7jTG8mUuf28D9OrVKRXHwapYYwnRu4+HMB91bl6l2WzvaagrBgGiJIsJYEGAKehd3qH0HsrnyvLaYxNC7bGrtuGB8KxrYjdXXMGBRY8qoDT0YjjQ0nItgN81+wN3zQ3fRlBu9t0HisQEfMvFR7oYyZ3E45wWrnnnZNI-+-uNObhdWyIbZtJJwCrxaColTPHm1jBQIY-myTiuEt5Up8LkHtOVDSq0EIw9lgapw+Rl91ByCi2q59IDu3NP7sqFdpUZqMiDDxJWot7rWGjPw+k97nzuS1dnkqBDZTMO6nVrEXhEmJxlI9ivFRD35cFO8PcJTCk2JU6DEud0EmK0DR4IOJ10vSWFPQx+ieem-gctZam7naGs3Dx-pj+bwlt9Dbl4pJXvUNe+h18Vp0g7+F0MnZzRP3r8DycLwU8zOf1f6i18JNEiRz2k2tWsLDuXyiVvB136vH3WV98Q0P0kyWi-T8PdphSTsqbJYQELB29H8QNfdBtUsqhSR242pvA9sx5sc61cdsQCdKY7Elt5dJMEEldnJ98ex38F9Lxv8MJWoGdyZmdDBT1b9GMC1sDrd2NwD+dUtqRSR8R59j8v89cBVJdDBpdAdx92c79Sc6Dvs+Zk92lvJrE6YzA9AKIjAzwLA9cJVDdBgUDTcQCvdjY8CKg2Cj9P8iD1ondrw1JXchFN9BCaCsDQC8pn8sZX9WCq8P8T91pQ8sQuhI9Oho8NCEcLZxDME24qgzVM5rxD1fA0RygXDTB894lali9zCYEhDvwNFHRqs1QT5Q0VonxLEFQXCVQA0WVugVQmoust87VkiGE3FVUWFqt9I3AbBlpf5si31ShZR2g8R-BYxoZVQKIztyjXEXF8x1VqsItMRjBFRE5egAgaYMR0R5ZalhkKRejKjOU+ioBnU+cU8fQlREMZExj9gSRFRdAzE2jZFVZ24bBqhKZw1mkNiJD44LlgoLF61GoXNqRbBDRw03Q-sIC8k7xlIzAcUjdZQjjgolIKhmxoZgUp0kxgggA */
+    id: 'gameStateMachine',
+    initial: 'starting',
+    states: {
+        starting: {
+            id: 'starting',
+            on: {
+                "loaded": "running"
+            }
+        },
+        running: {
+            initial: "briefing",
+            on: {
+                "pause": "paused",
+                "end": "ended"
+            },
+            states: {
+                hist: { 
+                    type: 'history',
+                    history: 'deep',                    
+                },
+                briefing: {
+                    id: 'briefing',
+                    initial: 'briefingPlay',
+                    states: {
+                        briefingPlay: {
+                            on: {
+                                "pause": "briefingPaused",
+                                "end": "briefingEnd"
+                            }
+                        },
+                        briefingPaused: {
+                            on: {
+                                "resume": "briefingPlay",
+                            }
+                        },
+                        briefingEnd: {
+                            type: "final"
+                        }
+                    },
+                    onDone: {
+                        target: "room1",
+                    }
+                }, 
+                room1: {
+                    id: 'room1',
+                    initial: "solving",
+                    onDone: 'room2',
+                    states: {
+                        "solved": {
+                            type: "final"
+                        },
+                        "solving": {
+                            type: 'parallel',
+                            onDone: "solved",
+                            states: {
+                                puzzle1: {
+                                    initial: 'unsolved',
+                                    states: {
+                                        "unsolved": {
+                                            on: {
+                                                "puzzle1.solved": "solved"
+                                            }
+                                        },
+                                        "solved": {
+                                            type: "final"
+                                        }
+                                    }
+                                },
+                                puzzle2: {
+                                    initial: 'unsolved',
+                                    states: {
+                                        "unsolved": {
+                                            on: {
+                                                "puzzle2.solved": "solved"
+                                            }
+                                        },
+                                        "solved": {
+                                            type: "final"
+                                        }
+                                    }
+                                },
+                                puzzle3: {
+                                    initial: 'unsolved',
+                                    states: {
+                                        "unsolved": {
+                                            on: {
+                                                "puzzle3.solved": "solved"
+                                            }
+                                        },
+                                        "solved": {
+                                            type: "final"
+                                        }
+                                    }                
+                                },
+                            },
+                        },
+                    }
+                },
+                room2: {
+                    id: 'room2',
+                    initial: "solving",
+                    onDone: 'room3',
+                    states: {
+                        "solved": {
+                            type: "final"
+                        },
+                        "solving": {
+                            type: 'parallel',
+                            onDone: "solved",
+                            states: {
+                                puzzle1: {
+                                    initial: 'unsolved',
+                                    states: {
+                                        "unsolved": {
+                                            on: {
+                                                "puzzle1.solved": "solved"
+                                            }
+                                        },
+                                        "solved": {
+                                            type: "final"
+                                        }
+                                    }
+                                },
+                                puzzle2: {
+                                    initial: 'unsolved',
+                                    states: {
+                                        "unsolved": {
+                                            on: {
+                                                "puzzle2.solved": "solved"
+                                            }
+                                        },
+                                        "solved": {
+                                            type: "final"
+                                        }
+                                    }
+                                },
+                                puzzle3: {
+                                    initial: 'unsolved',
+                                    states: {
+                                        "unsolved": {
+                                            on: {
+                                                "puzzle3.solved": "solved"
+                                            }
+                                        },
+                                        "solved": {
+                                            type: "final"
+                                        }
+                                    }                
+                                },
+                            },
+                        },
+                    }
+                },
+                room3: {
+                    id: 'room3',
+                    initial: "solving",
+                    onDone: 'debriefing',
+                    states: {
+                        "solved": {
+                            type: "final"
+                        },
+                        "solving": {
+                            type: 'parallel',
+                            onDone: "solved",
+                            states: {
+                                puzzle1: {
+                                    initial: 'unsolved',
+                                    states: {
+                                        "unsolved": {
+                                            on: {
+                                                "puzzle1.solved": "solved"
+                                            }
+                                        },
+                                        "solved": {
+                                            type: "final"
+                                        }
+                                    }
+                                },
+                                puzzle2: {
+                                    initial: 'unsolved',
+                                    states: {
+                                        "unsolved": {
+                                            on: {
+                                                "puzzle2.solved": "solved"
+                                            }
+                                        },
+                                        "solved": {
+                                            type: "final"
+                                        }
+                                    }
+                                },
+                                puzzle3: {
+                                    initial: 'unsolved',
+                                    states: {
+                                        "unsolved": {
+                                            on: {
+                                                "puzzle3.solved": "solved"
+                                            }
+                                        },
+                                        "solved": {
+                                            type: "final"
+                                        }
+                                    }                
+                                },
+                            },
+                        },
+                    }
+                },
+                debriefing: {
+                    id: 'debriefing',
+                    type: 'final',
+                    initial: 'debriefingPlay',
+                    states: {
+                        debriefingPlay: {
+                            on: {
+                                "pause": "debriefingPaused",
+                                "end": "debriefingEnd"
+                            }
+                        },
+                        debriefingPaused: {
+                            on: {
+                                "resume": "debriefingPlay",
+                            }
+                        },
+                        debriefingEnd: {
+                            type: "final"
+                        }
+                    },
+                },     
+            }
+        },
+        paused: {
+            on: {
+                "resume": "running.hist",
+                "end": "ended"
+            }
+        },
+        ended: {
+            type: "final"
+        }
+    }
+});
 
 /**
  * A system for managing the global game state machine.
@@ -329,7 +329,7 @@ AFRAME.registerSystem("game-state", {
         }));
         // Create subscriptions that allow updates when game state machine updates.
         this.service.subscribe((state) => {
-            console.log("Game State Machine Updated", state.value);
+            // console.log("Game State Machine Updated", state.value);
             this.el.emit("game-state-updated", state);
         });
         this.el.addEventListener("game-state-event", (event) => {
@@ -406,6 +406,42 @@ AFRAME.registerComponent("remove-on-game-event", {
         });
     }
 })
+
+AFRAME.registerComponent("disable-movement-in-states", {
+    schema: {
+        "states": {type: "array", required: true},
+    }, 
+    init: function () {
+        console.log("States to disable movement in", this.data.states);
+        this.el.sceneEl.addEventListener("game-state-updated", (event) => {
+            if (this.data.states.includes(event.detail.value)) {
+                this.previousState = this.el.getAttribute("motionControls");
+                this.el.setAttribute("motionControls", "enabled", false);
+            } else {
+                if (this.previousState) {
+                    this.el.setAttribute("motionControls", this.previousState);
+                    this.previousState = null;
+                }
+            }
+        });
+    }
+});
+AFRAME.registerComponent("show-in-state", {
+    schema: {
+        state: {type: "string", required: true},
+        hideOtherwise: {type: "boolean", default: false},
+    },
+    init: function () {
+        this.el.sceneEl.addEventListener("game-state-updated", (event) => {
+            console.log("game-state-updated in show-in-state", event.detail.value);
+            if (event.detail.matches(this.data.state)) {
+                this.el.setAttribute("visible", true);
+            } else if (this.data.hideOtherwise && this.el.getAttribute("visible")) {
+                this.el.setAttribute("visible", false);
+            }
+        });
+    }
+});
 /**
  * Hides the given gltf part when a game event occurs.
  */

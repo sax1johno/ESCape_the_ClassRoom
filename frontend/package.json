@@ -11,8 +11,8 @@
     "dist:max": "webpack --config webpack.config.js",
     "dist:min": "webpack --config webpack.prod.config.js",
     "lint": "eslint src tests *.js",
-    "build": "npm run dist && shx cp -r dist/* ../backend2/public/js",
-    "bdev": "npm run dist:max && shx cp -r dist/* ../backend2/public/js",
+    "build": "npm run dist && shx cp -r dist/* ../backend/public/js",
+    "bdev": "npm run dist:max && shx cp -r dist/* ../backend/public/js",
     "test": "karma start ./tests/unit/karma.conf.js",
     "test:firefox": "karma start ./tests/unit/karma.conf.js --browsers Firefox",
     "test:chrome": "karma start ./tests/unit/karma.conf.js --browsers Chrome"
