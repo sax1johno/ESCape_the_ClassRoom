@@ -1,1 +1,8 @@
-{ "version": 2, "rewrites": [{ "source": "/(.*)", "destination": "/" }] }
+{ "version": 2, 
+"builds": [
+    {
+      "src": "./backend/easyrtc-server.js",
+      "use": "@vercel/node"
+    }
+  ],
+"rewrites": [{ "source": "/(.*)", "destination": "/" }] }
