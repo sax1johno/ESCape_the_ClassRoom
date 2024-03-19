@@ -3,10 +3,11 @@
     "aframe-gltf-part-component": "^1.2.0",
     "open-easyrtc": "^2.0.20",
     "socket.io": "^4.7.4",
-    "tailwind-fontawesome": "^0.3.2"
+    "tailwind-fontawesome": "^0.3.2",
+    "vercel": "^33.6.1"
   },
   "scripts": {
     "navmesh": "cd ./recast-navigation-js/apps/navmesh-website && yarn run build && yarn run dev",
-    "server": "cd ./backend && npm start"
+    "start": "cd ./backend && npm start"
   }
 }

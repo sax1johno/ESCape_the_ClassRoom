@@ -52,3 +52,4 @@ examples/dist
 # Cert
 cert.pem
 key.pem
+.vercel
