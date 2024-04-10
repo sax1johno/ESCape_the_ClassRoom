@@ -1,32 +1,48 @@
 const path = require("path");
 
 module.exports = {
+    cache: true,
+    devtool: "eval-cheap-module-source-map",
+    optimization: {
+        moduleIds: 'deterministic',
+        runtimeChunk: 'single',
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                  test: /[\\/]node_modules[\\/]/,
+                  name: 'vendors',
+                  chunks: 'all'
+                }
+              }
+        },
+    },
     entry  : './src/index.js',
     output : {
         path     : path.resolve(__dirname, 'dist'),
         publicPath: '/dist/',
-        filename : 'esccl8.js'
+        filename: '[name].bundle.js',
     },
     mode: 'development',
-    devtool: 'source-map',    
     module : {
         rules: [
+        {
+            test: /\.css$/,
+            use: ["lit-css-loader"],
+        },            
             {
-                test: /\.js$/,
+                test: /\.(?:js|mjs|cjs)$/,
+                include: path.resolve(__dirname, 'src'),
                 use: {
                     loader: 'babel-loader',
                     options: {
-                      presets: ['@babel/preset-env']
+                      presets: ['@babel/preset-env'],
+                      plugins: [
+                        ["@babel/plugin-proposal-decorators", { decoratorsBeforeExport: true }],
+                        ["@babel/plugin-proposal-class-properties"]
+                    ]
                     }
                 }
             }
         ]
-    },
-    // devServer: {
-    //     static: {
-    //       directory: path.join(__dirname, 'public'),
-    //     },
-    //     compress: true,
-    //     port: 9000,
-    //   },    
+    }
 };

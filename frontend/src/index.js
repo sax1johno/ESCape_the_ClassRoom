@@ -1,4 +1,4 @@
-require("./components/game-state-machine.js");
-require("./components/simple-navmesh-constraint.js");
-require("./components/gltf-part-custom.js");
-require('./components/gltf-hide.js');
+require("./components/lit/index.js");
+require("./components/aframe/index.js");
+// require('aframe-locomotion');
+require("aframe-extras");

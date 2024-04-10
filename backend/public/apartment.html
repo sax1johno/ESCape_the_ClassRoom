@@ -2,39 +2,108 @@
 <html>
   <head>
     <title>ESCape the ClassRoom: Apartment Demo</title>
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
-    <!-- environment: Pretty stage presets. -->
-    <script src="https://unpkg.com/aframe-environment-component@2.0.0/dist/aframe-environment-component.min.js"></script>
-    <!-- proxy-event: Declaratively capture and event and reroute it to another entity. -->
-    <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script>
-    <!-- render-order: Control rendering order for transparent objects. -->
-    <script src="https://unpkg.com/aframe-render-order-component@1.0.0/dist/aframe-render-order-component.min.js"></script>
-    <!-- state: Manage application state and bind it to parts of the application to automatically react to state changes. -->
-    <script src="https://unpkg.com/aframe-state-component@6.6.0/dist/aframe-state-component.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.2.0/dist/aframe-extras.min.js"></script>
-    <script src="https://unpkg.com/aframe-gltf-part-component/dist/aframe-gltf-part-component.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/c-frame/physx@latest/dist/physx.min.js"></script>    
-    <script src="https://binzume.github.io/aframe-xylayout/dist/xylayout-all.min.js"></script>
-    <script>
+    <!-- <script>
       // Remove nav-mesh component from aframe-extras.
       delete AFRAME.components['nav-mesh']
-    </script>
-    <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
-    <script src="https://unpkg.com/aframe-locomotion@0.2.0/dist/aframe-locomotion.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.5.0/socket.io.slim.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/open-easyrtc@2.0.20/api/easyrtc.js"></script>
-    <script src="https://unpkg.com/networked-aframe@^0.12.0/dist/networked-aframe.min.js"></script>
-    <!-- <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>     -->
-    <!-- <script src="/js/aframe-components/simple-navmesh-constraint.js"></script> -->
-    <!-- <script src="/js/aframe-components/game-state-machine.js"></script> -->
-    <script src="/js/esccl8.js"></script>
+    </script> -->
+      <link crossorigin="anonymous"rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <script crossorigin="anonymous" src="/js/runtime.bundle.js"></script>
+      <script crossorigin="anonymous" src="/js/vendors.bundle.js"></script>
+      <script crossorigin="anonymous" src="/js/main.bundle.js"></script>    
   </head>
   <body>
-    <a-scene     
-      renderer="alpha:true;physicallyCorrectLights:true;colorManagement:true;exposure:2;toneMapping:ACESFilmic;"    
+    <!-- Tutorial Panels -->
+    <esc-html-panel id="Tutorial_LookAround" components='{"show-in-state": { "state": {"running": { "briefing": "briefingPlay" }}, "hideOtherwise": true}}' settings='{"debug": false, "showClipping": true, "parentSelector": "#firstPuzzleDoor", "position": { "x": 0, "y": -2.5, "z": 0.5}, "rotation": { "x": 90, "y": 0, "z": 0 } }'>
+      <div class="card rounded" style="width: 20rem;">
+        <div class="card-body" style="text-align: center;">
+            <h3 class="card-subtitle text-body-secondary">ESCape the ClassRoom!</h3>
+            <h4 class="card-subtitle text-body-secondary">Look Around!</h4>
+            <p class="card-text">Use the Right Thumbstick to look around.</p>
+        </div>
+      </div>
+    </esc-html-panel>
+
+    <esc-html-panel id="Tutorial_Move" components='{"scale": "2 2 1", "show-in-state": { "state": {"running": { "briefing": "briefingPlay" }}, "hideOtherwise": true}}' settings='{"debug": false, "showClipping": true, "parentSelector": "#firstPuzzleDoor", "position": { "x": -1.925, "y": -3.363, "z": 0.5}, "rotation": { "x": 0, "y": 90, "z": 90 } }'>
+      <div class="card rounded" style="width: 20rem;">
+        <div class="card-body" style="text-align: center;">
+            <h3 class="card-subtitle text-body-secondary">Move Around!</h3>
+            <p class="card-text">Use the Left Thumbstick to move around the room and explore</p>
+        </div>
+      </div>
+    </esc-html-panel>
+
+    <esc-tutorial-click-panel id="Tutorial_Click" components='{"tutorial-example": true, "show-in-state": { "state": {"running": { "briefing": "briefingPlay" }}, "hideOtherwise": true}}' settings='{"debug": false, "showClipping": true, "parentSelector": "#firstPuzzleDoor", "position": { "x": -1.371, "y": -0.03, "z": 0.5}, "rotation": { "x": 90, "y": 0, "z": 0 } }'>
+      <div class="card rounded" style="width: 20rem;">
+        <div class="card-body" style="text-align: center;">
+            <h3 class="card-subtitle text-body-secondary">Interact!</h3>
+            <p class="card-text">Use the controllers to select and the triggers to click on certain items in the room.</p>
+            <button class="btn btn-primary example_button" onClick="">Try Clicking Here!</button>
+        </div>
+      </div>
+    </esc-tutorial-click-panel>
+
+    <esc-html-panel id="Tutorial_Watch" components='{"scale": "1.5 1.5 1.5", "show-in-state": { "state": {"running": { "briefing": "briefingPlay" }}, "hideOtherwise": true}}' settings='{"debug": false, "showClipping": true, "parentSelector": "#firstPuzzleDoor", "position": { "x": 1.95, "y": -0.30, "z": 1.250}, "rotation": { "x": 0, "y": -90, "z": -90 } }'>
+      <div class="card rounded" style="width: 20rem;">
+        <div class="card-body" style="text-align: center;">
+            <h3 class="card-subtitle text-body-secondary">Watch Out!</h3>
+            <p class="card-text">Take a look at your left wrist - you'll see some fancy new Jewelry!</p>
+            <p class="card-text">The watch will help you keep track of the time remaining in the room and allow you to get hints.</p>
+        </div>
+      </div>
+    </esc-html-panel>
+
+    <esc-html-panel id="BriefingPanel" components='{"scale": "2 2 2", "briefing-dismiss": true, "show-in-state": { "state": {"running": { "briefing": "briefingPlay" }}, "hideOtherwise": true}}' settings='{"debug": false, "showClipping": true, "parentSelector": "#firstPuzzleDoor", "position": { "x": 0.532, "y": -3.600, "z": 1.250}, "rotation": { "x": -90, "y": -90, "z": -90 } }'>
+      <div class="card rounded" style="width: 20rem;">
+        <div class="card-body" style="text-align: center;">
+            <h1 class="card-title">Instructions</h1>
+            <h3 class="card-subtitle text-body-secondary">You have 60 minutes to escape your classroom</h3>
+            <p class="card-text">You will be presented with multiple puzzles.  Solve the puzzles to find the hidden codes and escape the room before time runs out.</p>
+            <p class="card-text">On your wrist is a watch which shows the countdown.  You can also select the "?" button to get a hint.</p>
+          <button onclick="" class="btn btn-primary dismiss">Start The Game</button>
+        </div>
+      </div>
+    </esc-html-panel>
+    animation__mouseenter="property: components.material.material.color; type: color; to: blue; startEvents: mouseenter; dur: 500";
+    animation__mouseleave="property: components.material.material.color; type: color; to: red; startEvents: mouseleave; dur: 500";>    
+    <esc-html-panel 
+        id="room1Puzzle1ButtonMap" 
+        components='{"to-stationary-scene": true, "scale": "2 2 2", "show-in-state": {"state": {"running": {"room1": "solving"}}, "hideOtherwise": true}}' 
+        settings='{"scale": 600, "position": { "x": -0.45, "y": 0.02, "z": -0.3}, "rotation": { "x": -90, "y": 0, "z": 0 }, "parentSelector": "#deskModel"}'
+      >
+          <img class="map" onclick="" src="/images/ThreeMarkerMap.png" style="width: 18rem;" />
+    </esc-html-panel>
+
+
+    <!-- Map Puzzle -->
+      <esc-html-panel 
+        id="room1Puzzle1Map" 
+        components='{"scale": "2 2 2", "puzzle1solved": "", "show-in-state": {"state": {"running": {"room1": "solving"}}, "hideOtherwise": true}}' 
+        settings='{"scale": 600, "position": { "x": -0.2, "y": 0.02, "z": -0.3}, "rotation": { "x": -90, "y": 0, "z": 0 }, "parentSelector": "#stationaryScene"}'
+      >
+          <!-- <button style="width: 18rem;" onClick="" class="btn btn-primary solve_puzzle_1">Solve Puzzle 1</button> -->
+          <img onclick="" src="/images/ThreeMarkerMap.png" style="width: 18rem;" />
+      </esc-html-panel>
+
+      <!-- Back button in the stationary panel -->
+      <esc-html-panel 
+        id="back"
+        components='{"to-main-scene": true, "scale": "0.1 0.1 0.1"}' 
+        settings='{"scale": 600, "position": { "x": -0.25, "y": 0.1, "z": -0.25}, "rotation": { "x": -90, "y": 0, "z": 0 }, "parentSelector": "#stationaryScene"}'
+      >
+          <img onclick="" src="/images/back-button.png" style="width: 18rem;" />
+      </esc-html-panel>
+
+
+      <!-- Wrist Watch showing the time left in the game and hint button -->
+      <esc-watch
+        components='{"position": "-0.182 0.058 -0.162", "scale": "1 1 1", "rotation": "-6.78 -107.740 87.110"}' 
+        settings='{"scale": 1000, "position": { "x": 0, "y": 0, "z": 0 }, "rotation": { "x": 0, "y": 0, "z": 0  }, "parentSelector": "#watchEntity"}'
+      ></esc-watch>
+    <!-- <esc-button id="room1Puzzle1Button" text="Solve Puzzle 1" components='{"puzzle1solved-example": "", "show-in-state": {"state": {"running": {"room1": "solving"}}, "hideOtherwise": true}}' settings='{"position": { "x": 0, "y": -0.15, "z": 1.5}, "rotation": { "x": 90, "y": 0, "z": 0 }, "parentSelector": "#firstPuzzleDoor"}'></esc-button> -->
+    <a-scene
+      renderer="exposure:2;toneMapping:ACESFilmic;"
       reflection="directionalLight:#dirlight;"      
-      raycaster="objects:.collidable;far:5500;"      
+      raycaster="objects:.vr-interactable;far:5500;"
       cursor__mouse="rayOrigin: mouse"
       cursor__xrselect="rayOrigin: xrselect"
       webxr="overlayElement:#dom-overlay;"
@@ -43,7 +112,7 @@
       networked-scene="
         room: default;
         adapter: wseasyrtc;
-        debug: true;
+        debug: false;
         "
     >
     <!-- physx="autoLoad: true; delay: 1000; wasmUrl: https://cdn.jsdelivr.net/gh/c-frame/physx@v0.1.0/wasm/physx.release.wasm; useDefaultScene: false;" -->
@@ -53,58 +122,59 @@
         <a-asset-item crossorigin="anonymous" id="apartment_navmesh" src="./3dmodels/low_poly__apartment/navmesh.gltf"></a-asset-item>
         <a-asset-item crossorigin="anonymous" id="apartment_navmesh_nodoors" src="./3dmodels/low_poly__apartment/navmesh_nodoors.gltf"></a-asset-item>
         <a-asset-item crossorigin="anonymous" id="skybox" src="./images/skybox.jpg"></a-asset-item>
+        <a-asset-item crossorigin="anonymous" id="desk" src="./3dmodels/computer_desk.glb"></a-asset-item>
+        <img crossorigin="anonymous" id="ThreeMarkerMap" src="./images/ThreeMarkerMap.png" />
+        <img crossorigin="anonymous" id="WatchBackground" src="./images/backgroundWatch.png" />
+        <img crossorigin="anonymous" id="BackButton" src="./images/back-button.png" />
+        <a-asset-item crossorigin="anonymous" id="watchModel" src="./3dmodels/watch.glb"></a-asset-item>
       </a-assets>
-      <!-- <a-sky material="shader: gradient; topColor: 200 200 200; bottomColor: 150 150 150"></a-sky>       -->
-      <a-entity
-        id="cameraRig" 
-        simple-navmesh-constraint="navmesh:.navmesh;fall:0.5;height:0;exclude:.navmesh-hole;"
-        movement-controls="speed:.25;camera:#camera"
-        disable-movement-in-states="states:running.briefing,running.paused,running.gameover"
-        position="2.0 0.2 5.4" 
-      >
-        <a-entity 
-          id="camera"
-          camera="near:0.1"
-          look-controls="pointerLockEnabled: true"
-          position="0 1.5 0"
-          origin-on-ar-start
-          >
-        </a-entity>
-        <a-entity laser-controls="hand: left" raycaster="far:Infinity;objects:.collidable" smooth-locomotion="target: #cameraRig; reference: #camera"></a-entity>
-        <a-entity laser-controls="hand: right" raycaster="far:Infinity;objects:.collidable" smooth-turn="target:#cameraRig; reference:#camera"></a-entity>
-        <a-xykeyboard scale="0.3 0.3 0.3" position="0 0.3 1" rotation="-30 0 0"></a-xykeyboard>        
-      </a-entity>
-      <a-gltf-model 
-        id="stage" 
-        src="#apartment" 
-        rotation="0 0 0"
-        gltf-hide="parts:apartmentDoor001,apartmentDoor002,apartmentDoor"
-      ></a-gltf-model>
-      <!-- animate-on-game-event__room2="state: xstate.done.state.room2;action:apartmentDoor.002_open;" -->
-      <a-entity gltf-part-custom="src: #apartment; part: apartmentDoor001;" id="firstPuzzleDoor">
-        <a-plane class="navmesh-hole" position="0 0 -1" rotation="0 0 0" width="1" height="0.5" visible="false"></a-plane>
-        <!-- Button for triggering puzzle 1 to be complete -->
-        <a-xybutton value="solve puzzle 1" show-in-state="state: running.room1; hideOtherwise: true" puzzle1solved-example rotation="90 0 0" position="0 -0.1 1.3" width="0.5" height="0.5" color="red" visible="true"></a-xybutton>
+      <a-entity id="mainScene" visible="true">
+          <a-gltf-model 
+          id="stage" 
+          src="#apartment" 
+          rotation="0 0 0"
+          gltf-hide="parts:apartmentDoor001,apartmentDoor002,apartmentDoor"
+        ></a-gltf-model>
 
-        <a-plane material="shader: flat; color: black; opacity: 0.9" rotation="90 0 0" show-in-state="state: running.briefing; hideOtherwise: true" position="0 -2 0.5" width="1" height="1" visible="true">
-          <a-xycontainer direction="column" width="1" height="0.9" >
-            <a-xylabel value="Pay Attention!" width="0.95" height="0.1"></a-xylabel>
-            <a-xylabel value="Details Matter." width="0.95" height="0.1"></a-xylabel>
-            <a-xylabel value="You have 60 minutes to escape before certain doom." width="0.95" height="0.1"></a-xylabel>
-            <a-xylabel value="Solve all the puzzles to escape or face the dire consequences." width="0.95" height="0.1"></a-xylabel>
-            <a-xybutton color="green" label="Begin" briefing-dismiss width="1" height="0.1" ></a-xybutton>
-          </a-xycontainer>
-        </a-plane>
+        <!-- animate-on-game-event__room2="state: xstate.done.state.room2;action:apartmentDoor.002_open;" -->
+        <a-entity gltf-part-custom="src: #apartment; part: apartmentDoor001;" id="firstPuzzleDoor">
+          <a-plane class="navmesh-hole" position="0 0 -1" rotation="0 0 0" width="1" height="0.5" visible="false"></a-plane>
+
+            <a-entity 
+              id="deskModel" 
+              position="1.550 -0.85 -0.175"
+              rotation="0 -90 -90"
+            >
+              <a-gltf-model 
+              src="#desk" 
+              scale="0.3 0.3 0.3"
+            ></a-gltf-model>  
+            </a-entity>
+
+        </a-entity>
+        <a-entity gltf-part-custom="src: #apartment; part: apartmentDoor;" id="secondPuzzleDoor">
+          <a-plane class="navmesh-hole" position="0 0 -1" rotation="0 0 0" width="1" height="0.5" visible="false"></a-plane>
+          <!-- <a-xybutton show-in-state="state: running.room2; hideOtherwise: true" value="solve puzzle 1" puzzle1solved-example rotation="-90 0 0" position="0 0.15 1.5" width="0.5" height="0.5" color="red" visible="true"></a-xybutton> -->
+        </a-entity>
+        <a-entity gltf-part-custom="src: #apartment; part: apartmentDoor002;" id="exitDoor">
+          <a-plane class="navmesh-hole" position="0 0 -1" rotation="0 0 0" width="1" height="0.5" visible="false"></a-plane>
+          <!-- <a-xybutton show-in-state="state: running.finalRoom; hideOtherwise: true" value="solve puzzle 1" puzzle1solved-example rotation="-90 0 0" position="0 0.15 1.3" width="0.5" height="0.5" color="red" visible="true"></a-xybutton> -->
+        </a-entity>
+        <a-gltf-model class="navmesh" id="stage_navmesh" src="#apartment_navmesh_nodoors" rotation="0 0 0" visible="false"></a-gltf-model>
+
       </a-entity>
-      <a-entity gltf-part-custom="src: #apartment; part: apartmentDoor;" id="secondPuzzleDoor">
-        <a-plane class="navmesh-hole" position="0 0 -1" rotation="0 0 0" width="1" height="0.5" visible="false"></a-plane>
-        <a-xybutton show-in-state="state: running.room2; hideOtherwise: true" value="solve puzzle 1" puzzle1solved-example rotation="-90 0 0" position="0 0.15 1.5" width="0.5" height="0.5" color="red" visible="true"></a-xybutton>
+      <a-entity id="stationaryScene" visible="false" position="19.75 1 -0.5" rotation="90 90 90">
+        <!-- Use this scene to display up-close puzzles -->
+        <a-entity 
+        position="0.2 0 0"
+        rotation="0 0 0"
+      >
+        <a-gltf-model 
+        src="#desk" 
+        scale="0.3 0.3 0.3"
+      ></a-gltf-model>  
       </a-entity>
-      <a-entity gltf-part-custom="src: #apartment; part: apartmentDoor002;" id="exitDoor">
-        <a-plane class="navmesh-hole" position="0 0 -1" rotation="0 0 0" width="1" height="0.5" visible="false"></a-plane>
-        <a-xybutton show-in-state="state: running.finalRoom; hideOtherwise: true" value="solve puzzle 1" puzzle1solved-example rotation="-90 0 0" position="0 0.15 1.3" width="0.5" height="0.5" color="red" visible="true"></a-xybutton>
       </a-entity>
-      <a-gltf-model class="navmesh" id="stage_navmesh" src="#apartment_navmesh_nodoors" rotation="0 0 0" visible="false"></a-gltf-model>
       <a-entity id="game-state-manager" custom-game-state-actions></a-entity>
       <a-entity id="room1" game-state="type: room; name: room1; onDone:room1complete"></a-entity>
       <a-entity id="room2" game-state="type: room; name: room2; onDone:room2complete"></a-entity>
@@ -112,51 +182,161 @@
       <a-entity id="room1puzzle1" game-state="type: puzzle; name: puzzle1; room: room1"></a-entity>
       <a-entity id="room2puzzle1" game-state="type: puzzle; name: puzzle1; room: room2"></a-entity>
       <a-entity id="room3puzzle1" game-state="type: puzzle; name: puzzle1; room: finalRoom"></a-entity>
+      <a-entity
+        id="cameraRig"
+        simple-navmesh-constraint="navmesh:.navmesh;fall:0.5;height:0;exclude:.navmesh-hole;"
+        movement-controls="speed:.10;camera:#camera"
+        disable-movement-in-states="states:running.briefing,running.paused,running.gameover"
+        position="2.0 0.2 5.4"
+      >
+        <a-entity 
+          id="camera"
+          position="0 1.5 0"
+          camera="near:0.1"
+          look-controls="pointerLockEnabled: true"
+          origin-on-ar-start
+          active=true
+          >
+        </a-entity>
+        <a-sphere
+          id="fadeMainCamera"
+          position="0 1.5 0"
+          radius="0.25"
+          color="black"
+          material="shader:flat; color: black; opacity: 0.0; side: double"
+          shadow="autoUpdate: false"
+          animation__fadeIn="property: material.opacity; from: 1.0; to: 0.0 dur: 500; startEvents: animate_fadeIn; delay: 500;"
+          animation__fadeOut="property: material.opacity; from: 0.0; to: 1.0 dur: 500; startEvents: animate_fadeOut;"
+          ></a-sphere>          
+        <a-entity laser-controls="hand: left" raycaster="far:20;objects:.vr-interactable" smooth-locomotion="target: #cameraRig; reference: #camera">
+          <a-entity id="watchEntity" position="0.015 0.03 0.148" scale="0.2 0.2 0.2" rotation="255 -20.71 32" gltf-model="#watchModel" shadow></a-entity>
+        </a-entity>
+        <a-entity laser-controls="hand: right; " raycaster="far:20;objects:.vr-interactable" smooth-turn="target:#cameraRig; reference:#camera" ></a-entity>
+      </a-entity>
+      <a-entity 
+        id="stationaryCameraRig" 
+        motionControls="enabled: false;" 
+        position="20 0 0"
+        rotation="0 0 0"
+        >
+        <a-entity
+          id="stationaryCamera"
+          camera="near:0.1"
+          look-controls="enabled: false"
+          position="0.25 0.5 0"
+          active=false></a-entity>
+          <a-sphere
+            id="fadeStationaryCamera"
+            position="0.25 0.5 0"
+            radius="0.25"
+            color="black"
+            material="shader:flat; color: black; opacity: 0.0; side: double"
+            shadow="autoUpdate: false"
+            animation__fadeIn="property: material.opacity; from: 1.0; to: 0.0 dur: 500; startEvents: animate_fadeIn;"
+            animation__fadeOut="property: material.opacity; from: 0.0; to: 1.0 dur: 500; startEvents: animate_fadeOut;"
+        ></a-sphere>          
+          <a-entity laser-controls="hand: left" raycaster="far:Infinity;objects:.vr-interactable" smooth-locomotion="target: #cameraRig; reference: #camera">
+            <a-entity id="watchEntity" position="0.015 0.03 0.148" scale="0.2 0.2 0.2" rotation="255 -20.71 32" gltf-model="#watchModel" shadow></a-entity>          
+          </a-entity>
+          <a-entity laser-controls="hand: right" raycaster="far:Infinity;objects:.vr-interactable" smooth-turn="target:#cameraRig; reference:#camera"></a-entity>  
+      </a-entity>
     </a-scene>
     <script>
-      // AFRAME.registerComponent("briefing-panel", {
-      //   init: function() {
-      //     this.el.addEventListener("click", function() {
-      //       console.log("Briefing panel clicked");
-      //       this.el.remove();
-      //     });
-      //   }
-      // })
-      // Start the game state machine when the scene is loaded.
-      document.querySelector('a-scene').addEventListener('loaded', function () {
-        this.systems['game-state'].start();
-        this.emit("game-state-event", "loaded");
-      });
-
       AFRAME.registerComponent("briefing-dismiss", {
         init: function() {
           var el = this.el;
-          var cb = function() {
-            console.log("Briefing panel clicked");
-            // End the briefing.
-            el.removeEventListener("click", cb);
-            el.emit("game-state-event", "end");
+          var cb = function(evt) {
+            // console.log(evt.detail);
+            if (evt.detail.target.classList.contains("dismiss")) {
+              console.log("SHould dismiss the dialog");
+            //     console.log("Briefing panel clicked");
+            //     // End the briefing.
+                el.removeEventListener("lit-click", cb);
+                el.emit("game-state-event", "end");
+            }
             // el.remove();
           }
-          this.el.addEventListener("click", cb);
+          this.el.addEventListener("lit-click", cb);
+          // console.log(this.el.querySelector(".dismiss"));
+          // this.el.querySelector(".dismiss").addEventListener("click", cb);
         }
       });
 
-      // TODO: Make one of these for each puzzle.
-      AFRAME.registerComponent("puzzle1solved-example", {
+      AFRAME.registerComponent("tutorial-example", {
         init: function() {
           var el = this.el;
-          var cb = function() {
-            console.log("Room 1 Puzzle 1 clicked");
-            // End the briefing.
-            el.removeEventListener("click", cb);
-            el.setAttribute("material", {
-              "color": "green"
-            });
-            el.sceneEl.emit("game-state-event", "puzzle1.solved");
-            // el.remove();
+          var cb = function(evt) {
+            console.log(evt.detail);
+            // if (evt.detail.target.classList.contains("dismiss")) {
+            console.log("Button was clicked!");
+            el.removeEventListener("lit-click", cb);
+                // el.emit("game-state-event", "end");
           }
-          this.el.addEventListener("click", cb);
+          
+          this.el.addEventListener("lit-click", cb);
+          // console.log(this.el.querySelector(".dismiss"));
+          // this.el.querySelector(".dismiss").addEventListener("click", cb);
+          // this.el.querySelector(".example_button span").innerText = "Good Job!";
+          // this.el.querySelector(".example_button").style.backgroundColor = "green";
+        }
+      });
+
+
+      AFRAME.registerComponent("to-main-scene", {
+        init: function() {
+          var el = this.el;
+          var cb = function(evt) {
+            // if (evt.detail.target.classList.contains("map")) {
+              document.getElementById("fadeStationaryCamera").emit("animate_fadeOut");
+              setTimeout(() => {
+                document.getElementById("fadeMainCamera").emit("animate_fadeIn");
+                document.getElementById('mainScene').setAttribute('visible', 'true')
+                document.getElementById('stationaryScene').setAttribute('visible', 'false')
+                document.getElementById("camera").setAttribute("camera", "active", "true");
+              }, 500);
+                // el.removeEventListener("lit-click", cb);
+                // el.emit("game-state-event", "end");
+            // }
+          }
+          this.el.addEventListener("lit-click", cb);
+          // console.log(this.el.querySelector(".dismiss"));
+          // this.el.querySelector(".dismiss").addEventListener("click", cb);
+        }
+      });
+      AFRAME.registerComponent("to-stationary-scene", {
+        init: function() {
+          var el = this.el;
+          var cb = function(evt) {
+              document.getElementById("fadeMainCamera").emit("animate_fadeOut");
+              document.getElementById("fadeStationaryCamera").emit("animate_fadeIn");
+              setTimeout(() => {
+                document.getElementById('mainScene').setAttribute('visible', 'false')
+                document.getElementById('stationaryScene').setAttribute('visible', 'true')
+                document.getElementById("stationaryCamera").setAttribute("camera", "active", "true");
+              }, 500);
+                // el.removeEventListener("lit-click", cb);
+                // el.emit("game-state-event", "end");
+          }
+          this.el.addEventListener("lit-click", cb);
+          // console.log(this.el.querySelector(".dismiss"));
+          // this.el.querySelector(".dismiss").addEventListener("click", cb);
+        }
+      });
+
+
+      // TODO: Make one of these for each puzzle.
+      AFRAME.registerComponent("puzzle1solved", {
+        init: function() {
+          var el = this.el;
+          var cb = function(evt) {
+            console.log("Room 1 Puzzle 1 clicked");
+            if (evt.detail.target.classList.contains("solve_puzzle_1")) {
+              console.log("SHould End puzzle 1");
+                el.removeEventListener("lit-click", cb);
+                el.emit("game-state-event", "puzzle1.solved");
+            }
+          }
+          this.el.addEventListener("lit-click", cb);
         }
       });
 
@@ -182,6 +362,20 @@
           });
         }
       });
+
+      // Start the game state machine when the scene is loaded.
+      document.querySelector('a-scene').addEventListener('loaded', function () {
+        setTimeout(function (){
+          document.querySelector("a-scene").systems['game-state'].start();
+          document.querySelector("a-scene").emit("game-state-event", "loaded");
+        }, 1000);
+        // document.querySelector("a-scene").systems['game-state'].start();
+        //   document.querySelector("a-scene").emit("game-state-event", "loaded");
+
+        // setTimeout(function (){
+        // }, 1000);
+      });
+
     </script>
   </body>
 </html>

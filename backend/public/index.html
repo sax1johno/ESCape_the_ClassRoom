@@ -2,33 +2,37 @@
 <html>
   <head>
     <title>ESCape the ClassRoom</title>
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
+    <!-- <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script> -->
     <!-- environment: Pretty stage presets. -->
-    <script src="https://unpkg.com/aframe-environment-component@2.0.0/dist/aframe-environment-component.min.js"></script>
+    <!-- <script src="https://unpkg.com/aframe-environment-component@2.0.0/dist/aframe-environment-component.min.js"></script> -->
     <!-- proxy-event: Declaratively capture and event and reroute it to another entity. -->
-    <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script>
+    <!-- <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script> -->
     <!-- render-order: Control rendering order for transparent objects. -->
-    <script src="https://unpkg.com/aframe-render-order-component@1.0.0/dist/aframe-render-order-component.min.js"></script>
+    <!-- <script src="https://unpkg.com/aframe-render-order-component@1.0.0/dist/aframe-render-order-component.min.js"></script> -->
     <!-- state: Manage application state and bind it to parts of the application to automatically react to state changes. -->
-    <script src="https://unpkg.com/aframe-state-component@6.6.0/dist/aframe-state-component.min.js"></script>
+    <!-- <script src="https://unpkg.com/aframe-state-component@6.6.0/dist/aframe-state-component.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.2.0/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-gltf-part-component/dist/aframe-gltf-part-component.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/c-frame/physx@latest/dist/physx.min.js"></script>    
-    <script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/physx@latest/dist/physx.min.js"></script>     -->
+    <!-- <script>
       // Remove nav-mesh component from aframe-extras.
       delete AFRAME.components['nav-mesh']
-    </script>
-    <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
+    </script> -->
+    <!-- <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
     <script src="https://binzume.github.io/aframe-xylayout/dist/xylayout-all.min.js"></script>    
     <script src="https://unpkg.com/aframe-locomotion@0.2.0/dist/aframe-locomotion.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.5.0/socket.io.slim.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/open-easyrtc@2.0.20/api/easyrtc.js"></script>
-    <script src="https://unpkg.com/networked-aframe@^0.12.0/dist/networked-aframe.min.js"></script>
+    <script src="https://unpkg.com/networked-aframe@^0.12.0/dist/networked-aframe.min.js"></script> -->
     <!-- <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>     -->
     <!-- <script src="/js/aframe-components/simple-navmesh-constraint.js"></script> -->
     <!-- <script src="/js/aframe-components/game-state-machine.js"></script> -->
-    <script src="/js/esccl8.js"></script>
+    <!-- <script src="/js/esccl8.js"></script> -->
+    <script crossorigin="anonymous" src="/js/runtime.bundle.js"></script>
+    <script crossorigin="anonymous" src="/js/vendors.bundle.js"></script>
+    <script crossorigin="anonymous" src="/js/main.bundle.js"></script>
+
   </head>
   <body>
     <a-scene     
@@ -92,6 +96,8 @@
           })
         }
       });
+
+      console.log(document.getElementsByTagName('a-scene')[0].components);
     </script>
   </body>
 </html>

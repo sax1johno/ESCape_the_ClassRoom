@@ -1,0 +1,50 @@
+version: "3.5"
+services:
+  # redis:
+  #   image: redis:latest
+  #   volumes:
+  #     - ./redis:/data
+  #   command: redis-server --appendonly yes --save 60 1 --loglevel warning
+  #   ports:
+  #     - 6379:6380
+  #   restart: always
+  #   environment:
+  #     - REDIS_REPLICATION_MODE=master
+  #   networks:
+  #     - proxynet
+  # skills-service:
+  #   image: skilltree/skills-service:2.3.3
+  #   ports:
+  #     - 8002:8080
+  #   environment:
+  #     - SPRING_PROPS="\spring.datasource.url=jdbc:h2:file:/db/skillsdb
+  #   volumes:
+  #     - ./data:/db
+  escape-the-class-room:
+    build: ./backend
+    ports:
+      - 8080:8080
+    volumes:
+      - ./backend:/usr/src/workspace
+    networks:
+      - proxynet
+  # nocobase:
+  #   image: nocobase/nocobase:latest
+  #   environment:
+  #     # - APP_PORT=8001
+  #     # - APP_HOST=0.0.0.0
+  #     - DB_HOST=storage/db/johnwoconnor.db
+  #     - INIT_ROOT_EMAIL=sax1johno@gmail.com
+  #     - INIT_ROOT_PASSWORD=c14fc19fC!
+  #     - LOCAL_STORAGE_BASE_URL=http://localhost:13000/storage/uploads
+  #   volumes:
+  #     - ./data:/app/nocobase/storage
+  #   ports:
+  #     - "13000:80"
+  #   networks:
+  #     - proxynet
+volumes:
+  nginx_secrets: {}
+networks:
+  proxynet:
+    name: cadee_network

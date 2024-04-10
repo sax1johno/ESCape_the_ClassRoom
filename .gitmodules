@@ -1,0 +1,6 @@
+[submodule "aframe-gif-shader"]
+	path = aframe-gif-shader
+	url = git@github.com:sax1johno/aframe-gif-shader.git
+[submodule "web2vr"]
+	path = web2vr
+	url = git@github.com:sax1johno/web2vr.git
