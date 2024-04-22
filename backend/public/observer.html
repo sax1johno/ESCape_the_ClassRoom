@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <title>ESCape the ClassRoom: ObserverDemo</title>
+      <link crossorigin="anonymous"rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <script crossorigin="anonymous" src="/js/runtime.bundle.js"></script>
+      <script crossorigin="anonymous" src="/js/vendors.bundle.js"></script>
+      <script crossorigin="anonymous" src="/js/main.bundle.js"></script>    
+  </head>
+  <body>
+    <a-scene
+    renderer="exposure:2;toneMapping:ACESFilmic;"
+    reflection="directionalLight:#dirlight;"      
+    raycaster="objects:.vr-interactable;far:5500;"
+    cursor__mouse="rayOrigin: mouse"
+    cursor__xrselect="rayOrigin: xrselect"
+    webxr="overlayElement:#dom-overlay;"
+    gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/versioned/decoders/1.5.6/;"
+    xr-mode-ui="XRMode:xr"
+    networked-scene="
+      room: default;
+      adapter: wseasyrtc;
+      debug: false;
+      "  
+    >
+
+
+    </a-scene>
+  </body>
+</html>

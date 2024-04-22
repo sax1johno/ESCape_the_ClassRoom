@@ -63,8 +63,6 @@
         </div>
       </div>
     </esc-html-panel>
-    animation__mouseenter="property: components.material.material.color; type: color; to: blue; startEvents: mouseenter; dur: 500";
-    animation__mouseleave="property: components.material.material.color; type: color; to: red; startEvents: mouseleave; dur: 500";>    
     <esc-html-panel 
         id="room1Puzzle1ButtonMap" 
         components='{"to-stationary-scene": true, "scale": "2 2 2", "show-in-state": {"state": {"running": {"room1": "solving"}}, "hideOtherwise": true}}' 
@@ -96,7 +94,7 @@
 
       <!-- Wrist Watch showing the time left in the game and hint button -->
       <esc-watch
-        components='{"position": "-0.182 0.058 -0.162", "scale": "1 1 1", "rotation": "-6.78 -107.740 87.110"}' 
+        components='{"game-clock": true, "position": "-0.182 0.058 -0.162", "scale": "1 1 1", "rotation": "-6.78 -107.740 87.110"}' 
         settings='{"scale": 1000, "position": { "x": 0, "y": 0, "z": 0 }, "rotation": { "x": 0, "y": 0, "z": 0  }, "parentSelector": "#watchEntity"}'
       ></esc-watch>
     <!-- <esc-button id="room1Puzzle1Button" text="Solve Puzzle 1" components='{"puzzle1solved-example": "", "show-in-state": {"state": {"running": {"room1": "solving"}}, "hideOtherwise": true}}' settings='{"position": { "x": 0, "y": -0.15, "z": 1.5}, "rotation": { "x": 90, "y": 0, "z": 0 }, "parentSelector": "#firstPuzzleDoor"}'></esc-button> -->
@@ -207,7 +205,7 @@
           shadow="autoUpdate: false"
           animation__fadeIn="property: material.opacity; from: 1.0; to: 0.0 dur: 500; startEvents: animate_fadeIn; delay: 500;"
           animation__fadeOut="property: material.opacity; from: 0.0; to: 1.0 dur: 500; startEvents: animate_fadeOut;"
-          ></a-sphere>          
+          ></a-sphere>
         <a-entity laser-controls="hand: left" raycaster="far:20;objects:.vr-interactable" smooth-locomotion="target: #cameraRig; reference: #camera">
           <a-entity id="watchEntity" position="0.015 0.03 0.148" scale="0.2 0.2 0.2" rotation="255 -20.71 32" gltf-model="#watchModel" shadow></a-entity>
         </a-entity>
@@ -242,6 +240,41 @@
       </a-entity>
     </a-scene>
     <script>
+      AFRAME.registerComponent("game-clock", {
+        init: function() {
+          // var el = this.el;
+          // var timeLeft = 60 * 60;
+          var timeElapsed = 0;
+          var that = this;
+          var interval = setInterval(function() {
+            // console.log("Inside game-clock, el = ", that.el);
+            // that.el.emit("game-clock-tick", {time: new Date(), timeDelta: timeElapsed})
+            timeElapsed += 1000;
+            console.log("timeElapsed = ", timeElapsed);
+            document.querySelector("esc-watch").tick({time: new Date(), timeDelta: timeElapsed});
+          //   timeLeft--;
+          //   var minutes = Math.floor(timeLeft / 60);
+          //   var seconds = timeLeft % 60;
+          //   timeDisplay.innerText = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+          //   if (timeLeft <= 0) {
+          //     clearInterval(interval);
+          //     el.emit("game-state-event", "gameover");
+          //   }
+          }, 1000);
+        }
+        // tick: function(time, timeDelta) {
+        });
+          // console.log("Ticking");
+          // this.el.tick(time, timeDelta);
+        //   this.tickTime = this.tickTime || 0;
+        //   this.tickTime += timeDelta;
+        //   if (this.tickTime > 1000) {
+        //     console.log("Tick time over 1s");
+        //     this.tickTime = 0;
+        //     this.el.sceneEl.emit("tick", {time: time, timeDelta: timeDelta});
+        //   }
+        // }
+      // })
       AFRAME.registerComponent("briefing-dismiss", {
         init: function() {
           var el = this.el;

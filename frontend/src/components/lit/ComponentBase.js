@@ -19,13 +19,13 @@ export const ComponentBaseMixin = (superClass) => {
             } else {
                 return this._id;
             }
-        }          
+        }
           
           static properties = {
             settings: { type: String, default: undefined },
             // position: { type: Object, default: {x: 0, y: 0, z: 0}},
             web2vrComponent: { type: Object, default: null},
-            components: { type: String , default: ""}
+            components: { type: String , default: ""},
           }
       
           constructor() {
@@ -43,16 +43,17 @@ export const ComponentBaseMixin = (superClass) => {
               var settings = that.settings ? JSON.parse(that.settings) : {};
               // Disable border because there are race condition issues between border and the LitElement.
               settings.border = false;
-              console.log("Settings = ", settings)
+              // console.log("Settings = ", settings)
               that.web2vrComponent = new Web2VR(that.shadowRoot.getElementById(`container_${that.id}`), settings);
               await that.web2vrComponent.start();
-        
+              
               var components = that.components ? JSON.parse(that.components) : {};
-              console.log("Components = ", components);
+              // console.log("Components = ", components);
               for (var component in components) {
                 that.web2vrComponent.aframe.container.setAttribute(component, components[component]);
-              }  
+              }
             });
+
           }
 
           async firstUpdated(changedProperties) {

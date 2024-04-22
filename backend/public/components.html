@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ESCape the ClassRoom: Component Tester</title>
+    <!-- <script>
+      // Remove nav-mesh component from aframe-extras.
+      delete AFRAME.components['nav-mesh']
+    </script> -->
+      <link crossorigin="anonymous"rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <script crossorigin="anonymous" src="/js/runtime.bundle.js"></script>
+      <script crossorigin="anonymous" src="/js/vendors.bundle.js"></script>
+      <script crossorigin="anonymous" src="/js/main.bundle.js"></script>    
+  </head>
+  <body>
+      <!-- Wrist Watch showing the time left in the game and hint button -->
+      <esc-watch
+        components='{"game-clock": true, "position": "-0.182 0.058 -0.162", "scale": "1 1 1", "rotation": "-6.78 -107.740 87.110"}' 
+        settings='{"scale": 1000, "position": { "x": 0, "y": 0, "z": 0 }, "rotation": { "x": 0, "y": 0, "z": 0  }, "parentSelector": "#watchEntity"}'
+      >
+      <button class="btn btn-primary">Hint HTML</button>
+    </esc-watch>
+    <!-- <esc-button id="room1Puzzle1Button" text="Solve Puzzle 1" components='{"puzzle1solved-example": "", "show-in-state": {"state": {"running": {"room1": "solving"}}, "hideOtherwise": true}}' settings='{"position": { "x": 0, "y": -0.15, "z": 1.5}, "rotation": { "x": 90, "y": 0, "z": 0 }, "parentSelector": "#firstPuzzleDoor"}'></esc-button> -->
+    <a-scene
+      renderer="exposure:2;toneMapping:ACESFilmic;"
+      reflection="directionalLight:#dirlight;"      
+      raycaster="objects:.vr-interactable;far:5500;"
+      cursor__mouse="rayOrigin: mouse"
+      cursor__xrselect="rayOrigin: xrselect"
+      webxr="overlayElement:#dom-overlay;"
+      gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/versioned/decoders/1.5.6/;"
+      xr-mode-ui="XRMode:xr"
+      networked-scene="
+        room: default;
+        adapter: wseasyrtc;
+        debug: false;
+        "
+    >
+    <!-- physx="autoLoad: true; delay: 1000; wasmUrl: https://cdn.jsdelivr.net/gh/c-frame/physx@v0.1.0/wasm/physx.release.wasm; useDefaultScene: false;" -->
+
+      <a-assets>
+        <a-asset-item crossorigin="anonymous" id="apartment" src="./3dmodels/low_poly__apartment/ApartmentScene.glb"></a-asset-item>
+        <a-asset-item crossorigin="anonymous" id="apartment_navmesh" src="./3dmodels/low_poly__apartment/navmesh.gltf"></a-asset-item>
+        <a-asset-item crossorigin="anonymous" id="apartment_navmesh_nodoors" src="./3dmodels/low_poly__apartment/navmesh_nodoors.gltf"></a-asset-item>
+        <a-asset-item crossorigin="anonymous" id="skybox" src="./images/skybox.jpg"></a-asset-item>
+        <a-asset-item crossorigin="anonymous" id="desk" src="./3dmodels/computer_desk.glb"></a-asset-item>
+        <img crossorigin="anonymous" id="ThreeMarkerMap" src="./images/ThreeMarkerMap.png" />
+        <img crossorigin="anonymous" id="WatchBackground" src="./images/backgroundWatch.png" />
+        <img crossorigin="anonymous" id="BackButton" src="./images/back-button.png" />
+        <a-asset-item crossorigin="anonymous" id="watchModel" src="./3dmodels/watch.glb"></a-asset-item>
+      </a-assets>
+      <a-entity id="mainScene" visible="true">
+        <a-sky color="#6EBAA7"></a-sky>        
+        <a-entity id="watchEntity" position="2 1.5 4" scale="2 2 2" rotation="90 90 0" gltf-model="#watchModel" shadow></a-entity>
+
+      <a-entity
+        id="cameraRig"
+        simple-navmesh-constraint="navmesh:.navmesh;fall:0.5;height:0;exclude:.navmesh-hole;"
+        movement-controls="speed:.10;camera:#camera"
+        disable-movement-in-states="states:running.briefing,running.paused,running.gameover"
+        position="2.0 0.2 5.4"
+      >
+        <a-entity 
+          id="camera"
+          position="0 1.5 0"
+          camera="near:0.1"
+          look-controls="pointerLockEnabled: true"
+          origin-on-ar-start
+          active=true
+          >
+        </a-entity>
+        <a-sphere
+          id="fadeMainCamera"
+          position="0 1.5 0"
+          radius="0.25"
+          color="black"
+          material="shader:flat; color: black; opacity: 0.0; side: double"
+          shadow="autoUpdate: false"
+          animation__fadeIn="property: material.opacity; from: 1.0; to: 0.0 dur: 500; startEvents: animate_fadeIn; delay: 500;"
+          animation__fadeOut="property: material.opacity; from: 0.0; to: 1.0 dur: 500; startEvents: animate_fadeOut;"
+          ></a-sphere>
+        <a-entity laser-controls="hand: left" raycaster="far:20;objects:.vr-interactable" smooth-locomotion="target: #cameraRig; reference: #camera">
+        </a-entity>
+        <a-entity laser-controls="hand: right; " raycaster="far:20;objects:.vr-interactable" smooth-turn="target:#cameraRig; reference:#camera" ></a-entity>
+      </a-entity>
+      <a-entity 
+        id="stationaryCameraRig" 
+        motionControls="enabled: false;" 
+        position="20 0 0"
+        rotation="0 0 0"
+        >
+        <a-entity
+          id="stationaryCamera"
+          camera="near:0.1"
+          look-controls="enabled: false"
+          position="0.25 0.5 0"
+          active=false></a-entity>
+          <a-sphere
+            id="fadeStationaryCamera"
+            position="0.25 0.5 0"
+            radius="0.25"
+            color="black"
+            material="shader:flat; color: black; opacity: 0.0; side: double"
+            shadow="autoUpdate: false"
+            animation__fadeIn="property: material.opacity; from: 1.0; to: 0.0 dur: 500; startEvents: animate_fadeIn;"
+            animation__fadeOut="property: material.opacity; from: 0.0; to: 1.0 dur: 500; startEvents: animate_fadeOut;"
+        ></a-sphere>          
+          <a-entity laser-controls="hand: left" raycaster="far:Infinity;objects:.vr-interactable" smooth-locomotion="target: #cameraRig; reference: #camera">
+            <a-entity id="watchEntity" position="0.015 0.03 0.148" scale="0.2 0.2 0.2" rotation="255 -20.71 32" gltf-model="#watchModel" shadow></a-entity>          
+          </a-entity>
+          <a-entity laser-controls="hand: right" raycaster="far:Infinity;objects:.vr-interactable" smooth-turn="target:#cameraRig; reference:#camera"></a-entity>  
+      </a-entity>
+    </a-scene>
+    <script>
+      // Start the game state machine when the scene is loaded.
+      // document.querySelector('a-scene').addEventListener('loaded', function () {
+      //   setTimeout(function (){
+      //     document.querySelector("a-scene").systems['game-state'].start();
+      //     document.querySelector("a-scene").emit("game-state-event", "loaded");
+      //   }, 1000);
+      //   // document.querySelector("a-scene").systems['game-state'].start();
+      //   //   document.querySelector("a-scene").emit("game-state-event", "loaded");
+
+      //   // setTimeout(function (){
+      //   // }, 1000);
+      // });
+
+    </script>
+  </body>
+</html>

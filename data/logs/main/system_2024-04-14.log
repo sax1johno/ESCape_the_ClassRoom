@@ -1,0 +1,8 @@
+{"level":"info","message":"add app main into supervisor","meta":{},"module":"application","submodule":"supervisor","method":"addApp","app":"main","reqId":"eb503785-7702-4e7e-9f61-3ccd9b5e6cc0","timestamp":"2024-04-14 23:59:20"}
+{"level":"info","message":"connection has been established successfully.","meta":{},"module":"database","submodule":"","method":"auth","app":"main","reqId":"eb503785-7702-4e7e-9f61-3ccd9b5e6cc0","timestamp":"2024-04-14 23:59:20"}
+{"level":"info","message":"start install built-in plugins","meta":{},"module":"nocobase","submodule":"","method":"","app":"main","reqId":"eb503785-7702-4e7e-9f61-3ccd9b5e6cc0","timestamp":"2024-04-14 23:59:21"}
+{"level":"info","message":"finish install built-in plugins","meta":{},"module":"nocobase","submodule":"","method":"","app":"main","reqId":"eb503785-7702-4e7e-9f61-3ccd9b5e6cc0","timestamp":"2024-04-14 23:59:31"}
+{"level":"info","message":"restarting...","meta":{},"module":"application","submodule":"","method":"","app":"main","reqId":"eb503785-7702-4e7e-9f61-3ccd9b5e6cc0","timestamp":"2024-04-14 23:59:31"}
+{"level":"info","message":"app.reload()","meta":{},"module":"application","submodule":"","method":"load","app":"main","reqId":"eb503785-7702-4e7e-9f61-3ccd9b5e6cc0","timestamp":"2024-04-14 23:59:31"}
+{"level":"info","message":"write roles to ACL","meta":{},"module":"acl","submodule":"","method":"writeRolesToACL","app":"main","reqId":"eb503785-7702-4e7e-9f61-3ccd9b5e6cc0","timestamp":"2024-04-14 23:59:33"}
+{"level":"info","message":"app has been started","meta":{},"module":"application","submodule":"","method":"","app":"main","reqId":"eb503785-7702-4e7e-9f61-3ccd9b5e6cc0","timestamp":"2024-04-14 23:59:33"}
