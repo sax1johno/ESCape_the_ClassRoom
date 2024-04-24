@@ -7,6 +7,7 @@
       delete AFRAME.components['nav-mesh']
     </script> -->
       <link crossorigin="anonymous"rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <link crossorigin="anonymous" rel="stylesheet" href="/css/main.css">
       <script crossorigin="anonymous" src="/js/runtime.bundle.js"></script>
       <script crossorigin="anonymous" src="/js/vendors.bundle.js"></script>
       <script crossorigin="anonymous" src="/js/main.bundle.js"></script>    
@@ -17,7 +18,12 @@
         components='{"game-clock": true, "position": "-0.182 0.058 -0.162", "scale": "1 1 1", "rotation": "-6.78 -107.740 87.110"}' 
         settings='{"scale": 1000, "position": { "x": 0, "y": 0, "z": 0 }, "rotation": { "x": 0, "y": 0, "z": 0  }, "parentSelector": "#watchEntity"}'
       >
-      <button class="btn btn-primary">Hint HTML</button>
+      <div class="watch">
+        <div class="time_header">Time Remaining</div>
+        <div class="time"><span class="minutes">60</span>:<span class="seconds">00</span></div>
+        <!-- <div class="hintsLeftHeader">Hints Left: <span class="hintsLeftcount">3</span></div>   -->
+        <button onclick="" class="toggle-start-button control btn btn-secondary">Start</button>
+      </div>
     </esc-watch>
     <!-- <esc-button id="room1Puzzle1Button" text="Solve Puzzle 1" components='{"puzzle1solved-example": "", "show-in-state": {"state": {"running": {"room1": "solving"}}, "hideOtherwise": true}}' settings='{"position": { "x": 0, "y": -0.15, "z": 1.5}, "rotation": { "x": 90, "y": 0, "z": 0 }, "parentSelector": "#firstPuzzleDoor"}'></esc-button> -->
     <a-scene

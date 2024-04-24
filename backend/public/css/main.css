@@ -1,0 +1,48 @@
+/**
+* Watch Component styling
+* TODO: Make this work with the shadow dom instead of light dom.
+*/
+esc-watch .watch {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-image: url('/images/backgroundWatch.png');
+    background-size: cover;
+    color: white;
+    z-index: 0.5;
+}
+
+esc-watch .watch .time_header {
+    font-size: 20px;
+    margin-left: 15%;
+    margin-top: 20%;
+    height: 18px;
+}
+
+esc-watch .watch .time {
+    font-size: 28px;
+    margin-left: 30%;
+    margin-top: 5%;
+    height: 32px;
+}
+
+esc-watch .watch .hintsLeftHeader {
+  font-size: 20px;
+  margin-left: 25%;
+  margin-top: 3%;
+  height: 18px;
+}
+
+esc-watch .watch .hintsLeft {
+  font-size: 20px;
+  margin-left: 50%;
+  margin-top: 5%;
+  height: 30px;
+}
+
+esc-watch .watch .hint-button {
+  font-size: 30px;
+  margin-left: 32%;
+  margin-top: 5%;
+  height: 38px;
+}

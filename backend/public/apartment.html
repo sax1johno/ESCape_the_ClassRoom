@@ -6,6 +6,7 @@
       // Remove nav-mesh component from aframe-extras.
       delete AFRAME.components['nav-mesh']
     </script> -->
+      <link crossorigin="anonymous" rel="stylesheet" href="/css/main.css">
       <link crossorigin="anonymous"rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
       <script crossorigin="anonymous" src="/js/runtime.bundle.js"></script>
       <script crossorigin="anonymous" src="/js/vendors.bundle.js"></script>
@@ -47,7 +48,7 @@
         <div class="card-body" style="text-align: center;">
             <h3 class="card-subtitle text-body-secondary">Watch Out!</h3>
             <p class="card-text">Take a look at your left wrist - you'll see some fancy new Jewelry!</p>
-            <p class="card-text">The watch will help you keep track of the time remaining in the room and allow you to get hints.</p>
+            <p class="card-text">The watch will help you keep track of the time remaining in the room - be sure to check it regularly. It will alert you periodically.</p>
         </div>
       </div>
     </esc-html-panel>
@@ -58,7 +59,7 @@
             <h1 class="card-title">Instructions</h1>
             <h3 class="card-subtitle text-body-secondary">You have 60 minutes to escape your classroom</h3>
             <p class="card-text">You will be presented with multiple puzzles.  Solve the puzzles to find the hidden codes and escape the room before time runs out.</p>
-            <p class="card-text">On your wrist is a watch which shows the countdown.  You can also select the "?" button to get a hint.</p>
+            <p class="card-text">On your wrist is a watch which shows the countdown.  It will play chimes and alarms to let you know how much time you have remaining.</p>
           <button onclick="" class="btn btn-primary dismiss">Start The Game</button>
         </div>
       </div>
@@ -96,7 +97,12 @@
       <esc-watch
         components='{"game-clock": true, "position": "-0.182 0.058 -0.162", "scale": "1 1 1", "rotation": "-6.78 -107.740 87.110"}' 
         settings='{"scale": 1000, "position": { "x": 0, "y": 0, "z": 0 }, "rotation": { "x": 0, "y": 0, "z": 0  }, "parentSelector": "#watchEntity"}'
-      ></esc-watch>
+      >
+        <div class="watch">
+          <div class="time_header">Time Remaining</div>
+          <div class="time"><span class="minutes">60</span>:<span class="seconds">00</span></div>
+        </div>
+    </esc-watch>
     <!-- <esc-button id="room1Puzzle1Button" text="Solve Puzzle 1" components='{"puzzle1solved-example": "", "show-in-state": {"state": {"running": {"room1": "solving"}}, "hideOtherwise": true}}' settings='{"position": { "x": 0, "y": -0.15, "z": 1.5}, "rotation": { "x": 90, "y": 0, "z": 0 }, "parentSelector": "#firstPuzzleDoor"}'></esc-button> -->
     <a-scene
       renderer="exposure:2;toneMapping:ACESFilmic;"
@@ -240,161 +246,6 @@
       </a-entity>
     </a-scene>
     <script>
-      AFRAME.registerComponent("game-clock", {
-        init: function() {
-          // var el = this.el;
-          // var timeLeft = 60 * 60;
-          var timeElapsed = 0;
-          var that = this;
-          var interval = setInterval(function() {
-            // console.log("Inside game-clock, el = ", that.el);
-            // that.el.emit("game-clock-tick", {time: new Date(), timeDelta: timeElapsed})
-            timeElapsed += 1000;
-            console.log("timeElapsed = ", timeElapsed);
-            document.querySelector("esc-watch").tick({time: new Date(), timeDelta: timeElapsed});
-          //   timeLeft--;
-          //   var minutes = Math.floor(timeLeft / 60);
-          //   var seconds = timeLeft % 60;
-          //   timeDisplay.innerText = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-          //   if (timeLeft <= 0) {
-          //     clearInterval(interval);
-          //     el.emit("game-state-event", "gameover");
-          //   }
-          }, 1000);
-        }
-        // tick: function(time, timeDelta) {
-        });
-          // console.log("Ticking");
-          // this.el.tick(time, timeDelta);
-        //   this.tickTime = this.tickTime || 0;
-        //   this.tickTime += timeDelta;
-        //   if (this.tickTime > 1000) {
-        //     console.log("Tick time over 1s");
-        //     this.tickTime = 0;
-        //     this.el.sceneEl.emit("tick", {time: time, timeDelta: timeDelta});
-        //   }
-        // }
-      // })
-      AFRAME.registerComponent("briefing-dismiss", {
-        init: function() {
-          var el = this.el;
-          var cb = function(evt) {
-            // console.log(evt.detail);
-            if (evt.detail.target.classList.contains("dismiss")) {
-              console.log("SHould dismiss the dialog");
-            //     console.log("Briefing panel clicked");
-            //     // End the briefing.
-                el.removeEventListener("lit-click", cb);
-                el.emit("game-state-event", "end");
-            }
-            // el.remove();
-          }
-          this.el.addEventListener("lit-click", cb);
-          // console.log(this.el.querySelector(".dismiss"));
-          // this.el.querySelector(".dismiss").addEventListener("click", cb);
-        }
-      });
-
-      AFRAME.registerComponent("tutorial-example", {
-        init: function() {
-          var el = this.el;
-          var cb = function(evt) {
-            console.log(evt.detail);
-            // if (evt.detail.target.classList.contains("dismiss")) {
-            console.log("Button was clicked!");
-            el.removeEventListener("lit-click", cb);
-                // el.emit("game-state-event", "end");
-          }
-          
-          this.el.addEventListener("lit-click", cb);
-          // console.log(this.el.querySelector(".dismiss"));
-          // this.el.querySelector(".dismiss").addEventListener("click", cb);
-          // this.el.querySelector(".example_button span").innerText = "Good Job!";
-          // this.el.querySelector(".example_button").style.backgroundColor = "green";
-        }
-      });
-
-
-      AFRAME.registerComponent("to-main-scene", {
-        init: function() {
-          var el = this.el;
-          var cb = function(evt) {
-            // if (evt.detail.target.classList.contains("map")) {
-              document.getElementById("fadeStationaryCamera").emit("animate_fadeOut");
-              setTimeout(() => {
-                document.getElementById("fadeMainCamera").emit("animate_fadeIn");
-                document.getElementById('mainScene').setAttribute('visible', 'true')
-                document.getElementById('stationaryScene').setAttribute('visible', 'false')
-                document.getElementById("camera").setAttribute("camera", "active", "true");
-              }, 500);
-                // el.removeEventListener("lit-click", cb);
-                // el.emit("game-state-event", "end");
-            // }
-          }
-          this.el.addEventListener("lit-click", cb);
-          // console.log(this.el.querySelector(".dismiss"));
-          // this.el.querySelector(".dismiss").addEventListener("click", cb);
-        }
-      });
-      AFRAME.registerComponent("to-stationary-scene", {
-        init: function() {
-          var el = this.el;
-          var cb = function(evt) {
-              document.getElementById("fadeMainCamera").emit("animate_fadeOut");
-              document.getElementById("fadeStationaryCamera").emit("animate_fadeIn");
-              setTimeout(() => {
-                document.getElementById('mainScene').setAttribute('visible', 'false')
-                document.getElementById('stationaryScene').setAttribute('visible', 'true')
-                document.getElementById("stationaryCamera").setAttribute("camera", "active", "true");
-              }, 500);
-                // el.removeEventListener("lit-click", cb);
-                // el.emit("game-state-event", "end");
-          }
-          this.el.addEventListener("lit-click", cb);
-          // console.log(this.el.querySelector(".dismiss"));
-          // this.el.querySelector(".dismiss").addEventListener("click", cb);
-        }
-      });
-
-
-      // TODO: Make one of these for each puzzle.
-      AFRAME.registerComponent("puzzle1solved", {
-        init: function() {
-          var el = this.el;
-          var cb = function(evt) {
-            console.log("Room 1 Puzzle 1 clicked");
-            if (evt.detail.target.classList.contains("solve_puzzle_1")) {
-              console.log("SHould End puzzle 1");
-                el.removeEventListener("lit-click", cb);
-                el.emit("game-state-event", "puzzle1.solved");
-            }
-          }
-          this.el.addEventListener("lit-click", cb);
-        }
-      });
-
-      // Add actions to the state machine for this application.
-      AFRAME.registerComponent("custom-game-state-actions", {
-        init: function() {
-          this.el.sceneEl.systems['game-state'].addActions({
-            room1complete: function({context, event}) {
-              console.log('Room 1 complete');
-              document.querySelector("#firstPuzzleDoor .navmesh-hole").remove();
-              document.querySelector("#firstPuzzleDoor").setAttribute("visible", "false");
-            },
-            room2complete: function({context, event}) {
-              console.log('Room 2 complete');
-              document.querySelector("#secondPuzzleDoor .navmesh-hole").remove();
-              document.querySelector("#secondPuzzleDoor").setAttribute("visible", "false");          
-            },
-            finalCoomComplete: function({context, event}) {
-              console.log('Final Room complete');
-              document.querySelector("#exitDoor .navmesh-hole").remove();
-              document.querySelector("#exitDoor").setAttribute("visible", "false");          
-            }
-          });
-        }
-      });
 
       // Start the game state machine when the scene is loaded.
       document.querySelector('a-scene').addEventListener('loaded', function () {

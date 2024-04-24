@@ -2,6 +2,7 @@
 import {html, css, LitElement} from 'lit';
 import { ComponentBaseElement } from './ComponentBase';
 
+
 export class Watch extends ComponentBaseElement {
   // Note: All elements are placed at -9999 to avoid the Flash of Unstyled Content (FOUC)
   // prior to AFrame loading.
@@ -18,34 +19,35 @@ export class Watch extends ComponentBaseElement {
       z-index: 0.5;
   }
   
-  .time_header {
+  .watch .time_header {
       font-size: 20px;
       margin-left: 15%;
       margin-top: 20%;
       height: 18px;
   }
   
-  .time {
+  .watch .time {
       font-size: 28px;
       margin-left: 30%;
       margin-top: 5%;
       height: 32px;
   }
 
-  .hintsLeftHeader {
+  .watch .hintsLeftHeader {
     font-size: 20px;
     margin-left: 25%;
     margin-top: 3%;
     height: 18px;
-}
-.hintsLeft {
+  }
+  
+  .watch .hintsLeft {
     font-size: 20px;
     margin-left: 50%;
     margin-top: 5%;
     height: 30px;
-}
+  }
 
-  .hint-button {
+  .watch .hint-button {
     font-size: 30px;
     margin-left: 32%;
     margin-top: 5%;
@@ -75,61 +77,45 @@ export class Watch extends ComponentBaseElement {
       this.timeDelta = 0;
       console.log("Creating Watch");
     }
-
-    _checkTime(i) {
-      if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
-      return i;
-    }
     
+    _renderTime = (value) => {
+      if (value < 10) { value = "0" + value };  // add zero in front of numbers < 10
+      return value;      
+    }
+
     firstUpdated(changedProperties) {
       super.firstUpdated(changedProperties);
-      console.log("Watch Connected");
-      // this.shadowRoot.querySelector(".hint-button").addEventListener("click", this._clickHandler.bind(this));
-      // document.querySelector("a-scene").addEventListener("tick", this.tick.bind(this));
-      // this.addEventListener("tick", this.tick.bind(this));
-      // this.web2vrComponent.aframe.container.addEventListener("tick", this.tick.bind(this));
-      // this.web2vrComponent.aframe.container.addEventListener("tick", (e) => { console.log(e) });
     }
 
-    updated(changedProperties) {
-      super.updated(changedProperties);
-      changedProperties.forEach((oldValue, propName) => {
-        console.log(`${propName} changed. oldValue: ${oldValue}`);
-      });
-    }
-
-
-    createRenderRoot() {
-      const root = super.createRenderRoot();
+    // Put the entire watch in the light dom.
+    // createRenderRoot() {
+      // const root = super.createRenderRoot();
       // root.addEventListener(
       //   'click',
       //   (e) => ( root.emit("lit-click", e.target.localName)
       // );
-      return root;
-    }
+      // return root;
+      // return this;
+    // }
 
     render() {
-      return html`
-        <div class="watch" id="container_${this.id}">
-            <div class="watch">
-               <div class="time_header">Time Remaining</div>
-               <div class="time"><span>${this._checkTime(this.minutes)}:${this._checkTime(this.seconds)}</span></div>
-               <div class="hintsLeftHeader">Hints Left: <span class="hintsLeftcount">${this.hintsLeft}</span></div>         
-               <slot @click="${this._clickHandler}"></slot>
-                <button @click="${this._clickHandler}" class="hint-button control btn btn-secondary">HINT</button>
-            </div>
+      var rend = html`
+        <div id="container_${this.id}" @click="${this._clickHandler}">
+            <slot></slot>
         </div>
       `;
+      return rend;
 
     }
 
     tick({time, timeDelta}) {
+      // document.querySelector("a-scene").emit("tick", {time: time, timeDelta: timeDelta});
       this.tickTime = this.tickTime + timeDelta;
       // console.log("Tick received", timeDelta);
       if (this.tickTime > 1000) {
         this.tickTime = 0;
         this._updateTime();
-      }
+      }      
     }
   
     _updateTime() {
@@ -146,6 +132,8 @@ export class Watch extends ComponentBaseElement {
         this.seconds = this.seconds - 1;
         this.requestUpdate("seconds", this.seconds);
       }
+      this.querySelector(".watch .time .minutes .vr-span").innerText = this._renderTime(this.minutes);
+      this.querySelector(".watch .time .seconds .vr-span").innerText = this._renderTime(this.seconds);
       // this.requestUpdate();
     }
 

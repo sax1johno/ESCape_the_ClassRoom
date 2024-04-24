@@ -22,23 +22,41 @@ AFRAME.registerComponent("send-state-event", {
         init: function() {
           // var el = this.el;
           // var timeLeft = 60 * 60;
-          var timeElapsed = 0;
+          var el = this.el;
           var that = this;
-          var interval = setInterval(function() {
-            // console.log("Inside game-clock, el = ", that.el);
-            // that.el.emit("game-clock-tick", {time: new Date(), timeDelta: timeElapsed})
-            timeElapsed += 1000;
-            console.log("timeElapsed = ", timeElapsed);
-            document.querySelector("esc-watch").tick({time: new Date(), timeDelta: timeElapsed});
-          //   timeLeft--;
-          //   var minutes = Math.floor(timeLeft / 60);
-          //   var seconds = timeLeft % 60;
-          //   timeDisplay.innerText = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-          //   if (timeLeft <= 0) {
-          //     clearInterval(interval);
-          //     el.emit("game-state-event", "gameover");
-          //   }
-          }, 1000);
+          that.running = false;
+          var cb = function(evt) {
+            // console.log(evt.detail);
+            if (evt.detail.target.classList.contains("toggle-start-button")) {
+                if (!that.running) {
+                    that.running = true;
+                    that.start();
+                    document.querySelector("esc-watch .toggle-start-button .vr-span").innerText = "PAUSE";
+                } else {
+                    that.running = false;
+                    that.pause();
+                    document.querySelector("esc-watch .toggle-start-button .vr-span").innerText = "START";
+                }
+            //     console.log("Briefing panel clicked");
+            //     // End the briefing.
+                // el.removeEventListener("lit-click", cb);
+                // el.emit("game-state-event", "end");
+            }
+            // el.remove();
+          }
+          this.el.addEventListener("lit-click", AFRAME.utils.throttle(cb, 100, this));
+        },
+        start: function() {
+            var that = this;
+            this.timeElapsed = this.timeElapsed || 0;
+            this.timer = setInterval(function() {
+              that.timeElapsed += 1000;
+              console.log("timeElapsed = ", that.timeElapsed);
+              document.querySelector("esc-watch").tick({time: new Date(), timeDelta: that.timeElapsed});
+            }, 1000);
+        },
+        pause: function() {
+            clearInterval(this.timer);
         }
         // tick: function(time, timeDelta) {
         });
@@ -59,11 +77,11 @@ AFRAME.registerComponent("send-state-event", {
           var cb = function(evt) {
             // console.log(evt.detail);
             if (evt.detail.target.classList.contains("dismiss")) {
-              console.log("SHould dismiss the dialog");
             //     console.log("Briefing panel clicked");
             //     // End the briefing.
                 el.removeEventListener("lit-click", cb);
                 el.emit("game-state-event", "end");
+                document.querySelector("esc-watch").web2vrComponent.aframe.container.components["game-clock"].start()
             }
             // el.remove();
           }

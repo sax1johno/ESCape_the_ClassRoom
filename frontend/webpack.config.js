@@ -28,7 +28,7 @@ module.exports = {
         {
             test: /\.css$/,
             use: ["lit-css-loader"],
-        },            
+        },
             {
                 test: /\.(?:js|mjs|cjs)$/,
                 include: path.resolve(__dirname, 'src'),

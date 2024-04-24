@@ -44,7 +44,11 @@ export const ComponentBaseMixin = (superClass) => {
               // Disable border because there are race condition issues between border and the LitElement.
               settings.border = false;
               // console.log("Settings = ", settings)
-              that.web2vrComponent = new Web2VR(that.shadowRoot.getElementById(`container_${that.id}`), settings);
+              if (that.shadowRoot) {
+                that.web2vrComponent = new Web2VR(that.shadowRoot.getElementById(`container_${that.id}`), settings);
+              } else {
+                that.web2vrComponent = new Web2VR(that.querySelector(`#container_${that.id}`), settings);
+              }
               await that.web2vrComponent.start();
               
               var components = that.components ? JSON.parse(that.components) : {};
@@ -58,7 +62,21 @@ export const ComponentBaseMixin = (superClass) => {
 
           async firstUpdated(changedProperties) {
             // Give the browser a chance to paint
-            this.shadowRoot.addEventListener( 'slotchange', this._slotChanged );
+            if (this.shadowRoot) {
+              this.shadowRoot.addEventListener( 'slotchange', this._slotChanged );
+            } else {
+              this.addEventListener('slotchange', this._slotChanged);
+            }
+          }
+
+          updated(changedProperties) {
+            super.updated(changedProperties);
+            try {
+              this.web2vrComponent?.update();              
+            } catch(e) {
+              // Swallow the error since errors from update are transient
+            }
+            
           }
 
           baseRender(template) {
