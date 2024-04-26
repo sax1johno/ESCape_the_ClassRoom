@@ -38,7 +38,7 @@ export class TutorialClickPanel extends ComponentBaseElement {
 
     render() {
       return html`
-        <div id="container_${this.id}" class="html-container" @click="${this._clickHandler}">
+        <div id="container_${this.cid}" class="html-container" @click="${this._clickHandler}">
             <slot></slot>
             <div class="card card-body" style="background-color: white; display: none;" id="info"></div>
         </div>

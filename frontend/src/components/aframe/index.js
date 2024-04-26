@@ -10,3 +10,6 @@ import "./gltf-part-custom.js";
 import "./simple-navmesh-constraint.js";
 import "./oculus-thumbstick-controls.js";
 import "./utils.js";
+
+import "./gameComponents/unlock-panel.js";
+import "./gameComponents/game-clock.js";

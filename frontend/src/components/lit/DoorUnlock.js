@@ -33,7 +33,7 @@ export class DoorUnlock extends ComponentBaseElement {
       ...ComponentBaseElement.properties,
       title: { type: String, default: "Enter the code to unlock!"},
       code: { type: String, default: "1234"},
-      roomId: { type: String, default: "room-1"}
+      roomId: { type: String, default: "room-1"}      
     }
 
     constructor() {
@@ -58,12 +58,8 @@ export class DoorUnlock extends ComponentBaseElement {
 
     render() {
       return html`
-      <div id="container_${this.id}" class="html-container container">
-        <div class="Title"></div>
-        <div class="Number-Pad"></div>
-        <div class="Action">
-            <button @click="${this._clickHandler}" class="btn btn-primary dismiss disabled">UNLOCK</button>        
-        </div>
+      <div id="container_${this.cid}" class="html-container container">
+        <slot @click="${this._clickHandler}"></slot>
       </div>
       `;
       // <button slot="dismiss" @click="${this._clickHandler}" class="btn btn-primary dismiss rounded">Dismiss</button>

@@ -50,7 +50,7 @@ export class InfoPanel extends ComponentBaseElement {
 
     render() {
       return html`
-      <div id="container_${this.id}" class="html-container">
+      <div id="container_${this.cid}" class="html-container">
             <slot></slot>
             <button @click="${this._clickHandler}" class="btn btn-primary dismiss">Start The Game</button>
       </div>

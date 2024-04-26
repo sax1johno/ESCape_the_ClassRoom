@@ -35,7 +35,7 @@ export class Button extends ComponentBaseElement {
 
     render() {
       return html`
-        <div class="html-container" id="container_${this.id}">
+        <div class="html-container" id="container_${this.cid}">
             <button @click="${this._clickHandler}" class="btn btn-primary">${this.text}</button>
         </div>
       `;

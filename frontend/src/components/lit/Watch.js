@@ -100,7 +100,7 @@ export class Watch extends ComponentBaseElement {
 
     render() {
       var rend = html`
-        <div id="container_${this.id}" @click="${this._clickHandler}">
+        <div id="container_${this.cid}" @click="${this._clickHandler}">
             <slot></slot>
         </div>
       `;

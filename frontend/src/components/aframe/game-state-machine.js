@@ -427,6 +427,7 @@ AFRAME.registerComponent("disable-movement-in-states", {
         });
     }
 });
+
 AFRAME.registerComponent("show-in-state", {
     schema: {
         state: {type: "string", required: true},
@@ -443,6 +444,23 @@ AFRAME.registerComponent("show-in-state", {
         });
     }
 });
+
+AFRAME.registerComponent("hide-in-state", {
+    schema: {
+        state: {type: "string", required: true},
+        showOtherwise: {type: "boolean", default: false},
+    },
+    init: function () {
+        this.el.sceneEl.addEventListener("game-state-updated", (event) => {
+            if (event.detail.matches(this.data.state) && this.el.getAttribute("visible")) {
+                this.el.setAttribute("visible", false);
+            } else if (this.data.showOtherwise) {
+                this.el.setAttribute("visible", true);
+            }
+        });
+    }
+});
+
 /**
  * Hides the given gltf part when a game event occurs.
  */

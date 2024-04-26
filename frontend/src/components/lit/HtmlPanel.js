@@ -48,7 +48,7 @@ export class HtmlPanel extends ComponentBaseElement {
 
     render() {
       return html`
-        <div id="container_${this.id}" class="html-container">
+        <div id="container_${this.cid}" class="html-container">
             <slot @click="${this._clickHandler}"></slot>
         </div>
       `;

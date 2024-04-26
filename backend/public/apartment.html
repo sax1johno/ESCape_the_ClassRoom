@@ -12,7 +12,7 @@
       <script crossorigin="anonymous" src="/js/vendors.bundle.js"></script>
       <script crossorigin="anonymous" src="/js/main.bundle.js"></script>    
   </head>
-  <body>
+  <body>    
     <!-- Tutorial Panels -->
     <esc-html-panel id="Tutorial_LookAround" components='{"show-in-state": { "state": {"running": { "briefing": "briefingPlay" }}, "hideOtherwise": true}}' settings='{"debug": false, "showClipping": true, "parentSelector": "#firstPuzzleDoor", "position": { "x": 0, "y": -2.5, "z": 0.5}, "rotation": { "x": 90, "y": 0, "z": 0 } }'>
       <div class="card rounded" style="width: 20rem;">
@@ -103,6 +103,139 @@
           <div class="time"><span class="minutes">60</span>:<span class="seconds">00</span></div>
         </div>
     </esc-watch>
+
+    <esc-html-panel 
+      components='{"show-in-state": {"state": {"running": {"debriefing": "debriefingPlay"}}, "hideOtherwise": true}, "scale": "7 7 7"}'
+      settings='{"scale": 600, "position": {"x": -9, "y": 4, "z": 0}, "rotation": {"x": 0, "y": 90, "z": 0}, "parentSelector": "#mainScene"}'
+    >
+    <div class="card" style="width: 600px;">
+      <div class="card-body">
+        <h1 class="card-title">
+          Congratulations!
+        </h1>
+        <h2>You have successfully escaped the classroom!</h2>
+        <h3>You finished in <span class="minutes"></span>:<span class="seconds"></span></h3>
+        <p class="card-text">
+          You have successfully escaped the classroom.  You can now remove your headset and return to the real world.
+        </p>
+      </div>
+    </div>
+  </esc-html-panel>
+
+    <!-- Room 2 unlock panel -->
+    <esc-html-panel class="unlockPanel" id="room2UnlockPanel"
+        settings='{"scale": 600, "position": { "x": -0.30, "y": 1.5, "z": 2.050}, "rotation": { "x": 0, "y": 180, "z": 0 }, "parentSelector": "#mainScene"}'
+        components='{"unlock-panel": "puzzle1.solved", "show-in-state": {"state": {"running": {"room2": "solving"}}, "hideOtherwise": true}}'
+      >
+          <div class="card" style="background: #aaa">
+            <div class="unlockPad">
+              <div class="Title"><h3>Enter the code</h3></div>
+              <div class="Number-Pad">
+                <div class="container">
+                  <div class="entry">
+                    <input class="unlock_1" type="text" maxlength="1"/>
+                  </div>
+                  <div class="entry">
+                    <input class="unlock_2 entry" type="text" maxlength="1"/>
+                  </div>
+                  <div class="entry">
+                    <input class="unlock_3 entry" type="text" maxlength="1"/>
+                  </div>
+                  <div class="entry">
+                    <input class="unlock_4 entry" type="text" maxlength="1"/>
+                  </div>
+                  <div class="entry">
+                    <input class="unlock_5 entry" type="text" maxlength="1"/>
+                  </div>  
+                </div>
+              </div>
+              <div class="Action">
+                <button onclick="" class="unlock control btn btn-primary">UNLOCK</button>
+                <div class="info">
+                  Click unlock to try your code.
+                </div>  
+              </div>
+            </div>            
+          </div>
+      </esc-html-panel>
+    <!-- End Room2 Unlock Panel -->
+
+    <!-- Room 3 unlock panel -->
+    <esc-html-panel class="unlockPanel" id="room3UnlockPanel"
+        settings='{"scale": 600, "position": { "x": -2.95, "y": 1.5, "z": 0.2}, "rotation": { "x": 0, "y": 90, "z": 0 }, "parentSelector": "#mainScene"}'
+        components='{"unlock-panel": "puzzle1.solved", "show-in-state": {"state": {"running": {"finalRoom": "solving"}}, "hideOtherwise": true}}'
+      >
+          <div class="card" style="background: #aaa">
+            <div class="unlockPad">
+              <div class="Title"><h3>Enter the code</h3></div>
+              <div class="Number-Pad">
+                <div class="container">
+                  <div class="entry">
+                    <input class="unlock_1" type="text" maxlength="1"/>
+                  </div>
+                  <div class="entry">
+                    <input class="unlock_2 entry" type="text" maxlength="1"/>
+                  </div>
+                  <div class="entry">
+                    <input class="unlock_3 entry" type="text" maxlength="1"/>
+                  </div>
+                  <div class="entry">
+                    <input class="unlock_4 entry" type="text" maxlength="1"/>
+                  </div>
+                  <div class="entry">
+                    <input class="unlock_5 entry" type="text" maxlength="1"/>
+                  </div>  
+                </div>
+              </div>
+              <div class="Action">
+                <button onclick="" class="unlock control btn btn-primary">UNLOCK</button>
+                <div class="info">
+                  Click unlock to try your code.
+                </div>  
+              </div>
+            </div>            
+          </div>
+      </esc-html-panel>
+    <!-- End Room 3 Unlock Panel -->
+
+    <!-- Room 1 unlock panel -->
+    <esc-html-panel class="unlockPanel" id="room1UnlockPanel"
+        settings='{"scale": 600, "position": { "x": 2.775, "y": 1.5, "z": 2.25}, "rotation": { "x": 0, "y": 0, "z": 0 }, "parentSelector": "#mainScene"}'
+        components='{"unlock-panel": "puzzle1.solved", "show-in-state": {"state": {"running": {"room1": "solving"}}, "hideOtherwise": true}}'
+      >
+          <div class="card" style="background: #aaa">
+            <div class="unlockPad">
+              <div class="Title"><h3>Enter the code</h3></div>
+              <div class="Number-Pad">
+                <div class="container">
+                  <div class="entry">
+                    <input class="unlock_1" type="text" maxlength="1"/>
+                  </div>
+                  <div class="entry">
+                    <input class="unlock_2 entry" type="text" maxlength="1"/>
+                  </div>
+                  <div class="entry">
+                    <input class="unlock_3 entry" type="text" maxlength="1"/>
+                  </div>
+                  <div class="entry">
+                    <input class="unlock_4 entry" type="text" maxlength="1"/>
+                  </div>
+                  <div class="entry">
+                    <input class="unlock_5 entry" type="text" maxlength="1"/>
+                  </div>  
+                </div>
+              </div>
+              <div class="Action">
+                <button onclick="" class="unlock control btn btn-primary">UNLOCK</button>
+                <div class="info">
+                  Click unlock to try your code.
+                </div>  
+              </div>
+            </div>            
+          </div>
+      </esc-html-panel>
+    <!-- End Room1 Unlock Panel -->
+
     <!-- <esc-button id="room1Puzzle1Button" text="Solve Puzzle 1" components='{"puzzle1solved-example": "", "show-in-state": {"state": {"running": {"room1": "solving"}}, "hideOtherwise": true}}' settings='{"position": { "x": 0, "y": -0.15, "z": 1.5}, "rotation": { "x": 90, "y": 0, "z": 0 }, "parentSelector": "#firstPuzzleDoor"}'></esc-button> -->
     <a-scene
       renderer="exposure:2;toneMapping:ACESFilmic;"
@@ -125,19 +258,21 @@
         <a-asset-item crossorigin="anonymous" id="apartment" src="./3dmodels/low_poly__apartment/ApartmentScene.glb"></a-asset-item>
         <a-asset-item crossorigin="anonymous" id="apartment_navmesh" src="./3dmodels/low_poly__apartment/navmesh.gltf"></a-asset-item>
         <a-asset-item crossorigin="anonymous" id="apartment_navmesh_nodoors" src="./3dmodels/low_poly__apartment/navmesh_nodoors.gltf"></a-asset-item>
-        <a-asset-item crossorigin="anonymous" id="skybox" src="./images/skybox.jpg"></a-asset-item>
+        <img crossorigin="anonymous" id="skybox" src="./images/uhd_vlt_circular_cc_eq.jpg"></img>
         <a-asset-item crossorigin="anonymous" id="desk" src="./3dmodels/computer_desk.glb"></a-asset-item>
         <img crossorigin="anonymous" id="ThreeMarkerMap" src="./images/ThreeMarkerMap.png" />
         <img crossorigin="anonymous" id="WatchBackground" src="./images/backgroundWatch.png" />
         <img crossorigin="anonymous" id="BackButton" src="./images/back-button.png" />
         <a-asset-item crossorigin="anonymous" id="watchModel" src="./3dmodels/watch.glb"></a-asset-item>
       </a-assets>
+      <a-sky src="#skybox" rotation="0 20 0"></a-sky>
       <a-entity id="mainScene" visible="true">
           <a-gltf-model 
           id="stage" 
           src="#apartment" 
           rotation="0 0 0"
           gltf-hide="parts:apartmentDoor001,apartmentDoor002,apartmentDoor"
+          hide-in-state="state: running.debriefing.debriefingPlay; showOtherwise: true"
         ></a-gltf-model>
 
         <!-- animate-on-game-event__room2="state: xstate.done.state.room2;action:apartmentDoor.002_open;" -->
@@ -180,7 +315,7 @@
       </a-entity>
       </a-entity>
       <a-entity id="game-state-manager" custom-game-state-actions></a-entity>
-      <a-entity id="room1" game-state="type: room; name: room1; onDone:room1complete"></a-entity>
+      <a-entity id="room1" game-state="type: room; name: room1; onDone:room1complete"></a-entity>      
       <a-entity id="room2" game-state="type: room; name: room2; onDone:room2complete"></a-entity>
       <a-entity id="finalRoom" game-state="type: room; name: finalRoom; onDone: finalCoomComplete"></a-entity>
       <a-entity id="room1puzzle1" game-state="type: puzzle; name: puzzle1; room: room1"></a-entity>
@@ -188,6 +323,7 @@
       <a-entity id="room3puzzle1" game-state="type: puzzle; name: puzzle1; room: finalRoom"></a-entity>
       <a-entity
         id="cameraRig"
+        class="camera-rig"
         simple-navmesh-constraint="navmesh:.navmesh;fall:0.5;height:0;exclude:.navmesh-hole;"
         movement-controls="speed:.10;camera:#camera"
         disable-movement-in-states="states:running.briefing,running.paused,running.gameover"
@@ -202,16 +338,6 @@
           active=true
           >
         </a-entity>
-        <a-sphere
-          id="fadeMainCamera"
-          position="0 1.5 0"
-          radius="0.25"
-          color="black"
-          material="shader:flat; color: black; opacity: 0.0; side: double"
-          shadow="autoUpdate: false"
-          animation__fadeIn="property: material.opacity; from: 1.0; to: 0.0 dur: 500; startEvents: animate_fadeIn; delay: 500;"
-          animation__fadeOut="property: material.opacity; from: 0.0; to: 1.0 dur: 500; startEvents: animate_fadeOut;"
-          ></a-sphere>
         <a-entity laser-controls="hand: left" raycaster="far:20;objects:.vr-interactable" smooth-locomotion="target: #cameraRig; reference: #camera">
           <a-entity id="watchEntity" position="0.015 0.03 0.148" scale="0.2 0.2 0.2" rotation="255 -20.71 32" gltf-model="#watchModel" shadow></a-entity>
         </a-entity>
