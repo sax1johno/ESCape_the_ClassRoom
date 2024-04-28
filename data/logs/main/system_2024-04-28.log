@@ -1,0 +1,10 @@
+{"level":"info","message":"add app main into supervisor","meta":{},"module":"application","submodule":"supervisor","method":"addApp","app":"main","reqId":"4d44de28-4261-4d42-81e3-b09a00f4e646","timestamp":"2024-04-28 15:24:11"}
+{"level":"info","message":"connection has been established successfully.","meta":{},"module":"database","submodule":"","method":"auth","app":"main","reqId":"4d44de28-4261-4d42-81e3-b09a00f4e646","timestamp":"2024-04-28 15:24:11"}
+{"level":"info","message":"upgrading...","meta":{},"module":"application","submodule":"","method":"","app":"main","reqId":"4d44de28-4261-4d42-81e3-b09a00f4e646","timestamp":"2024-04-28 15:24:11"}
+{"level":"info","message":"run upgrade","meta":{},"module":"application","submodule":"","method":"","app":"main","reqId":"4d44de28-4261-4d42-81e3-b09a00f4e646","timestamp":"2024-04-28 15:24:11"}
+{"level":"info","message":"update built-in plugins","meta":{},"module":"nocobase","submodule":"","method":"","app":"main","reqId":"4d44de28-4261-4d42-81e3-b09a00f4e646","timestamp":"2024-04-28 15:24:11"}
+{"level":"info","message":"run upgrade","meta":{},"module":"application","submodule":"","method":"","app":"main","reqId":"4d44de28-4261-4d42-81e3-b09a00f4e646","timestamp":"2024-04-28 15:24:22"}
+{"level":"info","message":"restarting...","meta":{},"module":"application","submodule":"","method":"","app":"main","reqId":"4d44de28-4261-4d42-81e3-b09a00f4e646","timestamp":"2024-04-28 15:24:23"}
+{"level":"info","message":"app.reload()","meta":{},"module":"application","submodule":"","method":"load","app":"main","reqId":"4d44de28-4261-4d42-81e3-b09a00f4e646","timestamp":"2024-04-28 15:24:23"}
+{"level":"info","message":"write roles to ACL","meta":{},"module":"acl","submodule":"","method":"writeRolesToACL","app":"main","reqId":"4d44de28-4261-4d42-81e3-b09a00f4e646","timestamp":"2024-04-28 15:24:34"}
+{"level":"info","message":"app has been started","meta":{},"module":"application","submodule":"","method":"","app":"main","reqId":"4d44de28-4261-4d42-81e3-b09a00f4e646","timestamp":"2024-04-28 15:24:35"}

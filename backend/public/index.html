@@ -32,9 +32,24 @@
     <script crossorigin="anonymous" src="/js/runtime.bundle.js"></script>
     <script crossorigin="anonymous" src="/js/vendors.bundle.js"></script>
     <script crossorigin="anonymous" src="/js/main.bundle.js"></script>
-
+    <link crossorigin="anonymous"rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link crossorigin="anonymous" rel="stylesheet" href="/css/main.css">
   </head>
   <body>
+      <div style="position: absolute">
+      <esc-html-panel
+      settings='{"rotation": "0 0 0", "position": {"x": 0, "y": 0, "z": -0.5}, "parentSelector": "#menu"}'
+    >
+      <div class="card" style="text-align: center; opacity: 0.65">
+        <div class="card-title" style="padding: 5px;">
+          <h5>ESCape the ClassRoom Demo</h5>
+        </div>
+          <div class="card-body">
+            <a class="btn btn-primary apartment" href="/apartment.html">Enter Geometry Game</a>
+          </div>
+      </div>
+    </esc-html-panel>
+    </div>
     <a-scene     
       raycaster="objects:.collidable;far:5500;"
       cursor__mouse="rayOrigin: mouse"
@@ -63,14 +78,15 @@
           origin-on-ar-start
           animation="property: rotation; to: 0 360; easing: linear; loop: true; dur: 200000"
           >
-          <a-plane material="shader: flat; color: black; opacity: 0.5" rotation="0 0 0" position="0 0 -1" width="1" height="1" visible="true">
+          <a-entity id="menu"></a-entity>
+          <!-- <a-plane material="shader: flat; color: black; opacity: 0.5" rotation="0 0 0" position="0 0 -1" width="1" height="1" visible="true">
             <a-xycontainer direction="column" width="1" height="0.9" >
               <a-xylabel value="Welcome to!" width="0.95" height="0.1"></a-xylabel>
               <a-xylabel value="ESCape the ClassRoom." width="0.95" height="0.1"></a-xylabel>
               <a-xylabel value="" width="0.95" height="0.2"></a-xylabel>
               <a-xybutton color="green" label="START" start-game width="1" height="0.1" ></a-xybutton>
             </a-xycontainer>
-          </a-plane>  
+          </a-plane>   -->
         </a-entity>
         <a-entity laser-controls="hand: left" raycaster="far:Infinity;objects:.collidable" smooth-locomotion="target: #cameraRig; reference: #camera"></a-entity>
         <a-entity laser-controls="hand: right" raycaster="far:Infinity;objects:.collidable" smooth-turn="target:#cameraRig; reference:#camera"></a-entity>
