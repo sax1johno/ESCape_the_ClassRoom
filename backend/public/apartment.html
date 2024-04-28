@@ -12,238 +12,237 @@
       <script crossorigin="anonymous" src="/js/vendors.bundle.js"></script>
       <script crossorigin="anonymous" src="/js/main.bundle.js"></script>    
   </head>
-  <body>    
+  <body>
     <!-- Tutorial Panels -->
-    <esc-html-panel id="Tutorial_LookAround" components='{"show-in-state": { "state": {"running": { "briefing": "briefingPlay" }}, "hideOtherwise": true}}' settings='{"debug": false, "showClipping": true, "parentSelector": "#firstPuzzleDoor", "position": { "x": 0, "y": -2.5, "z": 0.5}, "rotation": { "x": 90, "y": 0, "z": 0 } }'>
-      <div class="card rounded" style="width: 20rem;">
-        <div class="card-body" style="text-align: center;">
-            <h3 class="card-subtitle text-body-secondary">ESCape the ClassRoom!</h3>
-            <h4 class="card-subtitle text-body-secondary">Look Around!</h4>
-            <p class="card-text">Use the Right Thumbstick to look around.</p>
+    <!-- Wrap the HTML rendered panels in a position: absolute div so it doesn't throw off the scene buttons -->
+    <div class="lit-elements" style="position: absolute;">
+      <esc-html-panel id="Tutorial_LookAround" components='{"show-in-state": { "state": {"running": { "briefing": "briefingPlay" }}, "hideOtherwise": true}}' settings='{"debug": false, "showClipping": true, "parentSelector": "#firstPuzzleDoor", "position": { "x": 0, "y": -2.5, "z": 0.5}, "rotation": { "x": 90, "y": 0, "z": 0 } }'>
+        <div class="card rounded" style="width: 20rem;">
+          <div class="card-body" style="text-align: center;">
+              <h3 class="card-subtitle text-body-secondary">ESCape the ClassRoom!</h3>
+              <h4 class="card-subtitle text-body-secondary">Look Around!</h4>
+              <p class="card-text">Use the Right Thumbstick to look around.</p>
+          </div>
         </div>
-      </div>
-    </esc-html-panel>
-
-    <esc-html-panel id="Tutorial_Move" components='{"scale": "2 2 1", "show-in-state": { "state": {"running": { "briefing": "briefingPlay" }}, "hideOtherwise": true}}' settings='{"debug": false, "showClipping": true, "parentSelector": "#firstPuzzleDoor", "position": { "x": -1.925, "y": -3.363, "z": 0.5}, "rotation": { "x": 0, "y": 90, "z": 90 } }'>
-      <div class="card rounded" style="width: 20rem;">
-        <div class="card-body" style="text-align: center;">
-            <h3 class="card-subtitle text-body-secondary">Move Around!</h3>
-            <p class="card-text">Use the Left Thumbstick to move around the room and explore</p>
-        </div>
-      </div>
-    </esc-html-panel>
-
-    <esc-tutorial-click-panel id="Tutorial_Click" components='{"tutorial-example": true, "show-in-state": { "state": {"running": { "briefing": "briefingPlay" }}, "hideOtherwise": true}}' settings='{"debug": false, "showClipping": true, "parentSelector": "#firstPuzzleDoor", "position": { "x": -1.371, "y": -0.03, "z": 0.5}, "rotation": { "x": 90, "y": 0, "z": 0 } }'>
-      <div class="card rounded" style="width: 20rem;">
-        <div class="card-body" style="text-align: center;">
-            <h3 class="card-subtitle text-body-secondary">Interact!</h3>
-            <p class="card-text">Use the controllers to select and the triggers to click on certain items in the room.</p>
-            <button class="btn btn-primary example_button" onClick="">Try Clicking Here!</button>
-        </div>
-      </div>
-    </esc-tutorial-click-panel>
-
-    <esc-html-panel id="Tutorial_Watch" components='{"scale": "1.5 1.5 1.5", "show-in-state": { "state": {"running": { "briefing": "briefingPlay" }}, "hideOtherwise": true}}' settings='{"debug": false, "showClipping": true, "parentSelector": "#firstPuzzleDoor", "position": { "x": 1.95, "y": -0.30, "z": 1.250}, "rotation": { "x": 0, "y": -90, "z": -90 } }'>
-      <div class="card rounded" style="width: 20rem;">
-        <div class="card-body" style="text-align: center;">
-            <h3 class="card-subtitle text-body-secondary">Watch Out!</h3>
-            <p class="card-text">Take a look at your left wrist - you'll see some fancy new Jewelry!</p>
-            <p class="card-text">The watch will help you keep track of the time remaining in the room - be sure to check it regularly. It will alert you periodically.</p>
-        </div>
-      </div>
-    </esc-html-panel>
-
-    <esc-html-panel id="BriefingPanel" components='{"scale": "2 2 2", "briefing-dismiss": true, "show-in-state": { "state": {"running": { "briefing": "briefingPlay" }}, "hideOtherwise": true}}' settings='{"debug": false, "showClipping": true, "parentSelector": "#firstPuzzleDoor", "position": { "x": 0.532, "y": -3.600, "z": 1.250}, "rotation": { "x": -90, "y": -90, "z": -90 } }'>
-      <div class="card rounded" style="width: 20rem;">
-        <div class="card-body" style="text-align: center;">
-            <h1 class="card-title">Instructions</h1>
-            <h3 class="card-subtitle text-body-secondary">You have 60 minutes to escape your classroom</h3>
-            <p class="card-text">You will be presented with multiple puzzles.  Solve the puzzles to find the hidden codes and escape the room before time runs out.</p>
-            <p class="card-text">On your wrist is a watch which shows the countdown.  It will play chimes and alarms to let you know how much time you have remaining.</p>
-          <button onclick="" class="btn btn-primary dismiss">Start The Game</button>
-        </div>
-      </div>
-    </esc-html-panel>
-    <esc-html-panel 
-        id="room1Puzzle1ButtonMap" 
-        components='{"to-stationary-scene": true, "scale": "2 2 2", "show-in-state": {"state": {"running": {"room1": "solving"}}, "hideOtherwise": true}}' 
-        settings='{"scale": 600, "position": { "x": -0.45, "y": 0.02, "z": -0.3}, "rotation": { "x": -90, "y": 0, "z": 0 }, "parentSelector": "#deskModel"}'
-      >
-          <img class="map" onclick="" src="/images/ThreeMarkerMap.png" style="width: 18rem;" />
-    </esc-html-panel>
-
-
-    <!-- Map Puzzle -->
-      <esc-html-panel 
-        id="room1Puzzle1Map" 
-        components='{"scale": "2 2 2", "puzzle1solved": "", "show-in-state": {"state": {"running": {"room1": "solving"}}, "hideOtherwise": true}}' 
-        settings='{"scale": 600, "position": { "x": -0.2, "y": 0.02, "z": -0.3}, "rotation": { "x": -90, "y": 0, "z": 0 }, "parentSelector": "#stationaryScene"}'
-      >
-          <!-- <button style="width: 18rem;" onClick="" class="btn btn-primary solve_puzzle_1">Solve Puzzle 1</button> -->
-          <img onclick="" src="/images/ThreeMarkerMap.png" style="width: 18rem;" />
       </esc-html-panel>
 
-      <!-- Back button in the stationary panel -->
-      <esc-html-panel 
-        id="back"
-        components='{"to-main-scene": true, "scale": "0.1 0.1 0.1"}' 
-        settings='{"scale": 600, "position": { "x": -0.25, "y": 0.1, "z": -0.25}, "rotation": { "x": -90, "y": 0, "z": 0 }, "parentSelector": "#stationaryScene"}'
-      >
-          <img onclick="" src="/images/back-button.png" style="width: 18rem;" />
+      <esc-html-panel id="Tutorial_Move" components='{"scale": "2 2 1", "show-in-state": { "state": {"running": { "briefing": "briefingPlay" }}, "hideOtherwise": true}}' settings='{"debug": false, "showClipping": true, "parentSelector": "#firstPuzzleDoor", "position": { "x": -1.925, "y": -3.363, "z": 0.5}, "rotation": { "x": 0, "y": 90, "z": 90 } }'>
+        <div class="card rounded" style="width: 20rem;">
+          <div class="card-body" style="text-align: center;">
+              <h3 class="card-subtitle text-body-secondary">Move Around!</h3>
+              <p class="card-text">Use the Left Thumbstick to move around the room and explore</p>
+          </div>
+        </div>
       </esc-html-panel>
 
-
-      <!-- Wrist Watch showing the time left in the game and hint button -->
-      <esc-watch
-        components='{"game-clock": true, "position": "-0.182 0.058 -0.162", "scale": "1 1 1", "rotation": "-6.78 -107.740 87.110"}' 
-        settings='{"scale": 1000, "position": { "x": 0, "y": 0, "z": 0 }, "rotation": { "x": 0, "y": 0, "z": 0  }, "parentSelector": "#watchEntity"}'
-      >
-        <div class="watch">
-          <div class="time_header">Time Remaining</div>
-          <div class="time"><span class="minutes">60</span>:<span class="seconds">00</span></div>
+      <esc-tutorial-click-panel id="Tutorial_Click" components='{"tutorial-example": true, "show-in-state": { "state": {"running": { "briefing": "briefingPlay" }}, "hideOtherwise": true}}' settings='{"debug": false, "showClipping": true, "parentSelector": "#firstPuzzleDoor", "position": { "x": -1.371, "y": -0.03, "z": 0.5}, "rotation": { "x": 90, "y": 0, "z": 0 } }'>
+        <div class="card rounded" style="width: 20rem;">
+          <div class="card-body" style="text-align: center;">
+              <h3 class="card-subtitle text-body-secondary">Interact!</h3>
+              <p class="card-text">Use the controllers to select and the triggers to click on certain items in the room.</p>
+              <button class="btn btn-primary example_button" onClick="">Try Clicking Here!</button>
+          </div>
         </div>
-    </esc-watch>
+      </esc-tutorial-click-panel>
 
-    <esc-html-panel 
-      components='{"show-in-state": {"state": {"running": {"debriefing": "debriefingPlay"}}, "hideOtherwise": true}, "scale": "7 7 7"}'
-      settings='{"scale": 600, "position": {"x": -9, "y": 4, "z": 0}, "rotation": {"x": 0, "y": 90, "z": 0}, "parentSelector": "#mainScene"}'
-    >
-    <div class="card" style="width: 600px;">
-      <div class="card-body">
-        <h1 class="card-title">
-          Congratulations!
-        </h1>
-        <h2>You have successfully escaped the classroom!</h2>
-        <h3>You finished in <span class="minutes"></span>:<span class="seconds"></span></h3>
-        <p class="card-text">
-          You have successfully escaped the classroom.  You can now remove your headset and return to the real world.
-        </p>
+      <esc-html-panel id="Tutorial_Watch" components='{"scale": "1.5 1.5 1.5", "show-in-state": { "state": {"running": { "briefing": "briefingPlay" }}, "hideOtherwise": true}}' settings='{"debug": false, "showClipping": true, "parentSelector": "#firstPuzzleDoor", "position": { "x": 1.95, "y": -0.30, "z": 1.250}, "rotation": { "x": 0, "y": -90, "z": -90 } }'>
+        <div class="card rounded" style="width: 20rem;">
+          <div class="card-body" style="text-align: center;">
+              <h3 class="card-subtitle text-body-secondary">Watch Out!</h3>
+              <p class="card-text">Take a look at your left wrist - you'll see some fancy new Jewelry!</p>
+              <p class="card-text">The watch will help you keep track of the time remaining in the room - be sure to check it regularly. It will alert you periodically.</p>
+          </div>
+        </div>
+      </esc-html-panel>
+
+      <esc-html-panel id="BriefingPanel" components='{"scale": "2 2 2", "briefing-dismiss": true, "show-in-state": { "state": {"running": { "briefing": "briefingPlay" }}, "hideOtherwise": true}}' settings='{"debug": false, "showClipping": true, "parentSelector": "#firstPuzzleDoor", "position": { "x": 0.532, "y": -3.600, "z": 1.250}, "rotation": { "x": -90, "y": -90, "z": -90 } }'>
+        <div class="card rounded" style="width: 20rem;">
+          <div class="card-body" style="text-align: center;">
+              <h1 class="card-title">Instructions</h1>
+              <h3 class="card-subtitle text-body-secondary">You have 60 minutes to escape your classroom</h3>
+              <p class="card-text">You will be presented with multiple puzzles.  Solve the puzzles to find the hidden codes and escape the room before time runs out.</p>
+              <p class="card-text">On your wrist is a watch which shows the countdown.  It will play chimes and alarms to let you know how much time you have remaining.</p>
+            <button onclick="" class="btn btn-primary dismiss">Start The Game</button>
+          </div>
+        </div>
+      </esc-html-panel>
+
+        <!-- Wrist Watch showing the time left in the game and hint button -->
+        <esc-watch id="mainWatch"
+          components='{"game-clock": true, "position": "-0.182 0.058 -0.162", "scale": "1 1 1", "rotation": "-6.78 -107.740 87.110"}' 
+          settings='{"scale": 1000, "position": { "x": 0, "y": 0, "z": 0 }, "rotation": { "x": 0, "y": 0, "z": 0  }, "parentSelector": "#watchEntity"}'
+        >
+          <div class="watch">
+            <div class="time_header">Time Remaining</div>
+            <div class="time"><span class="minutes">60</span>:<span class="seconds">00</span></div>
+          </div>
+      </esc-watch>
+
+      <esc-time-panel id="EndGamePanel"
+        components='{"game-clock": true, "show-in-state": {"state": {"running": {"debriefing": "debriefingPlay"}}, "hideOtherwise": true}, "scale": "7 7 7"}'
+        settings='{"scale": 600, "position": {"x": -9, "y": 4, "z": 0}, "rotation": {"x": 0, "y": 90, "z": 0}, "parentSelector": "#mainScene"}'
+      >
+      <div class="card" style="width: 600px;">
+        <div class="card-body">
+          <h1 class="card-title">
+            Congratulations!
+          </h1>
+          <h2>You have successfully escaped the classroom!</h2>
+          <h3 class="time">You finished in <span class="minutes">60</span>:<span class="seconds">00</span></h3>
+          <p class="card-text">
+            You have successfully escaped the classroom.  You can now remove your headset and return to the real world.
+          </p>
+        </div>
       </div>
+    </esc-time-panel>
+
+      <!-- Room 2 unlock panel -->
+      <esc-html-panel class="unlockPanel" id="room2UnlockPanel"
+          settings='{"scale": 600, "position": { "x": -0.30, "y": 1.75, "z": 2.050}, "rotation": { "x": 0, "y": 180, "z": 0 }, "parentSelector": "#mainScene"}'
+          components='{"game-state": {"type": "puzzle", "name": "puzzle1", "room": "room2"}, "unlock-panel": {"solvedEvent": "puzzle1.solved", "unlockCode": "18"}, "show-in-state": {"state": {"running": {"room2": "solving"}}, "hideOtherwise": true}}'
+        >
+            <div class="card" style="background: #aaa">
+              <div class="unlockPad">
+                <div class="Title">
+                  <h3>How many quadrilaterals are there?</h3>
+                  <img src="./images/puzzle2.jpg" style="width: 100%;" />
+                </div>
+                <div class="Number-Pad">
+                  <div class="container">
+                    <div class="entry">
+                      <input class="unlock_1" type="text" maxlength="1"/>
+                    </div>
+                    <div class="entry">
+                      <input class="unlock_2 entry" type="text" maxlength="1"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="Action">
+                  <button onclick="" class="unlock control btn btn-primary">UNLOCK</button>
+                  <div class="info">
+                    Click unlock to try your code.
+                  </div>  
+                </div>
+              </div>            
+            </div>
+        </esc-html-panel>
+      <!-- End Room2 Unlock Panel -->
+
+      <!-- Room 3 unlock panel -->
+      <esc-html-panel class="unlockPanel" id="room3UnlockPanel"
+          settings='{"scale": 600, "position": { "x": -2.95, "y": 1.75, "z": 0.2}, "rotation": { "x": 0, "y": 90, "z": 0 }, "parentSelector": "#mainScene"}'
+          components='{"game-state": {"type": "puzzle", "name": "puzzle1", "room": "finalRoom"}, "unlock-panel": {"solvedEvent": "puzzle1.solved", "unlockCode": "OHAHOA"}, "show-in-state": {"state": {"running": {"finalRoom": "solving"}}, "hideOtherwise": true}}'
+        >
+            <div class="card" style="background: #aaa">
+              <div class="unlockPad">
+                <div class="Title"><h3>Complete the Phrase for Sin, Cos, and Tan</h3></div>
+                <div class="Number-Pad">
+                  <div class="container">
+                      <table>
+                        <tr>
+                          <th rowspan="2">S =</th>
+                          <td>
+                            <div class="entry">
+                              <input class="unlock_1" type="text" maxlength="1"/>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="entry">
+                              <input class="unlock_2 entry" type="text" maxlength="1"/>
+                            </div>        
+                          </td>
+                        </tr>
+                      </table>                    
+                    <table>
+                      <tr>
+                        <th rowspan="2">C =</th>
+                        <td>
+                          <div class="entry">
+                            <input class="unlock_3" type="text" maxlength="1"/>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="entry">
+                            <input class="unlock_4 entry" type="text" maxlength="1"/>
+                          </div>        
+                        </td>
+                      </tr>
+                    </table>   
+                    <table>
+                      <tr>
+                        <th rowspan="2">T =</th>
+                        <td>
+                          <div class="entry">
+                            <input class="unlock_5" type="text" maxlength="1"/>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="entry">
+                            <input class="unlock_6 entry" type="text" maxlength="1"/>
+                          </div>        
+                        </td>
+                      </tr>
+                    </table>   
+                  </div>                
+                </div>
+                <div class="Action">
+                  <button onclick="" class="unlock control btn btn-primary">UNLOCK</button>
+                  <div class="info">
+                    Click unlock to try your code.
+                  </div>  
+                </div>
+              </div>            
+            </div>
+        </esc-html-panel>
+      <!-- End Room 3 Unlock Panel -->
+
+      <!-- Room 1 unlock panel -->
+      <esc-html-panel class="unlockPanel" id="room1Puzzle1"
+          settings='{"scale": 600, "position": { "x": 2.775, "y": 1.75, "z": 2.25}, "rotation": { "x": 0, "y": 0, "z": 0 }, "parentSelector": "#mainScene"}'
+          components='{"game-state": {"type": "puzzle", "name": "puzzle1", "room": "room1"}, "unlock-panel": {"solvedEvent": "puzzle1.solved", "unlockCode": "16"}, "show-in-state": {"state": {"running": {"room1": "solving"}}, "hideOtherwise": true}}'
+        >
+            <div class="card" style="background: #aaa">
+              <div class="unlockPad">
+                <div class="Title">
+                  <h3>Solve the Puzzle</h3>
+                  <img src="./images/puzzle1.png" style="width: 100%;" />
+                </div>
+                <div class="Number-Pad">
+                  <div class="container">
+                    <div class="entry">
+                      <input class="unlock_1" type="text" maxlength="1"/>
+                    </div>
+                    <div class="entry">
+                      <input class="unlock_2 entry" type="text" maxlength="1"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="Action">
+                  <button onclick="" class="unlock control btn btn-primary">UNLOCK</button>
+                  <div class="info">
+                    Click unlock to try your code.
+                  </div>  
+                </div>
+              </div>            
+            </div>
+        </esc-html-panel>
+      <!-- End Room1 Unlock Panel -->
     </div>
-  </esc-html-panel>
-
-    <!-- Room 2 unlock panel -->
-    <esc-html-panel class="unlockPanel" id="room2UnlockPanel"
-        settings='{"scale": 600, "position": { "x": -0.30, "y": 1.5, "z": 2.050}, "rotation": { "x": 0, "y": 180, "z": 0 }, "parentSelector": "#mainScene"}'
-        components='{"unlock-panel": "puzzle1.solved", "show-in-state": {"state": {"running": {"room2": "solving"}}, "hideOtherwise": true}}'
-      >
-          <div class="card" style="background: #aaa">
-            <div class="unlockPad">
-              <div class="Title"><h3>Enter the code</h3></div>
-              <div class="Number-Pad">
-                <div class="container">
-                  <div class="entry">
-                    <input class="unlock_1" type="text" maxlength="1"/>
-                  </div>
-                  <div class="entry">
-                    <input class="unlock_2 entry" type="text" maxlength="1"/>
-                  </div>
-                  <div class="entry">
-                    <input class="unlock_3 entry" type="text" maxlength="1"/>
-                  </div>
-                  <div class="entry">
-                    <input class="unlock_4 entry" type="text" maxlength="1"/>
-                  </div>
-                  <div class="entry">
-                    <input class="unlock_5 entry" type="text" maxlength="1"/>
-                  </div>  
-                </div>
-              </div>
-              <div class="Action">
-                <button onclick="" class="unlock control btn btn-primary">UNLOCK</button>
-                <div class="info">
-                  Click unlock to try your code.
-                </div>  
-              </div>
-            </div>            
-          </div>
-      </esc-html-panel>
-    <!-- End Room2 Unlock Panel -->
-
-    <!-- Room 3 unlock panel -->
-    <esc-html-panel class="unlockPanel" id="room3UnlockPanel"
-        settings='{"scale": 600, "position": { "x": -2.95, "y": 1.5, "z": 0.2}, "rotation": { "x": 0, "y": 90, "z": 0 }, "parentSelector": "#mainScene"}'
-        components='{"unlock-panel": "puzzle1.solved", "show-in-state": {"state": {"running": {"finalRoom": "solving"}}, "hideOtherwise": true}}'
-      >
-          <div class="card" style="background: #aaa">
-            <div class="unlockPad">
-              <div class="Title"><h3>Enter the code</h3></div>
-              <div class="Number-Pad">
-                <div class="container">
-                  <div class="entry">
-                    <input class="unlock_1" type="text" maxlength="1"/>
-                  </div>
-                  <div class="entry">
-                    <input class="unlock_2 entry" type="text" maxlength="1"/>
-                  </div>
-                  <div class="entry">
-                    <input class="unlock_3 entry" type="text" maxlength="1"/>
-                  </div>
-                  <div class="entry">
-                    <input class="unlock_4 entry" type="text" maxlength="1"/>
-                  </div>
-                  <div class="entry">
-                    <input class="unlock_5 entry" type="text" maxlength="1"/>
-                  </div>  
-                </div>
-              </div>
-              <div class="Action">
-                <button onclick="" class="unlock control btn btn-primary">UNLOCK</button>
-                <div class="info">
-                  Click unlock to try your code.
-                </div>  
-              </div>
-            </div>            
-          </div>
-      </esc-html-panel>
-    <!-- End Room 3 Unlock Panel -->
-
-    <!-- Room 1 unlock panel -->
-    <esc-html-panel class="unlockPanel" id="room1UnlockPanel"
-        settings='{"scale": 600, "position": { "x": 2.775, "y": 1.5, "z": 2.25}, "rotation": { "x": 0, "y": 0, "z": 0 }, "parentSelector": "#mainScene"}'
-        components='{"unlock-panel": "puzzle1.solved", "show-in-state": {"state": {"running": {"room1": "solving"}}, "hideOtherwise": true}}'
-      >
-          <div class="card" style="background: #aaa">
-            <div class="unlockPad">
-              <div class="Title"><h3>Enter the code</h3></div>
-              <div class="Number-Pad">
-                <div class="container">
-                  <div class="entry">
-                    <input class="unlock_1" type="text" maxlength="1"/>
-                  </div>
-                  <div class="entry">
-                    <input class="unlock_2 entry" type="text" maxlength="1"/>
-                  </div>
-                  <div class="entry">
-                    <input class="unlock_3 entry" type="text" maxlength="1"/>
-                  </div>
-                  <div class="entry">
-                    <input class="unlock_4 entry" type="text" maxlength="1"/>
-                  </div>
-                  <div class="entry">
-                    <input class="unlock_5 entry" type="text" maxlength="1"/>
-                  </div>  
-                </div>
-              </div>
-              <div class="Action">
-                <button onclick="" class="unlock control btn btn-primary">UNLOCK</button>
-                <div class="info">
-                  Click unlock to try your code.
-                </div>  
-              </div>
-            </div>            
-          </div>
-      </esc-html-panel>
-    <!-- End Room1 Unlock Panel -->
 
     <!-- <esc-button id="room1Puzzle1Button" text="Solve Puzzle 1" components='{"puzzle1solved-example": "", "show-in-state": {"state": {"running": {"room1": "solving"}}, "hideOtherwise": true}}' settings='{"position": { "x": 0, "y": -0.15, "z": 1.5}, "rotation": { "x": 90, "y": 0, "z": 0 }, "parentSelector": "#firstPuzzleDoor"}'></esc-button> -->
     <a-scene
       renderer="exposure:2;toneMapping:ACESFilmic;"
       reflection="directionalLight:#dirlight;"      
-      raycaster="objects:.vr-interactable;far:5500;"
+      raycaster="objects:.collidable;far:5500;"
       cursor__mouse="rayOrigin: mouse"
       cursor__xrselect="rayOrigin: xrselect"
-      webxr="overlayElement:#dom-overlay;"
+      webxr="overlayElement:#dom-overlay;"      
       gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/versioned/decoders/1.5.6/;"
       xr-mode-ui="XRMode:xr"
       networked-scene="
@@ -252,6 +251,7 @@
         debug: false;
         "
     >
+    <a-entity environment=""></a-entity>    
     <!-- physx="autoLoad: true; delay: 1000; wasmUrl: https://cdn.jsdelivr.net/gh/c-frame/physx@v0.1.0/wasm/physx.release.wasm; useDefaultScene: false;" -->
 
       <a-assets>
@@ -264,12 +264,22 @@
         <img crossorigin="anonymous" id="WatchBackground" src="./images/backgroundWatch.png" />
         <img crossorigin="anonymous" id="BackButton" src="./images/back-button.png" />
         <a-asset-item crossorigin="anonymous" id="watchModel" src="./3dmodels/watch.glb"></a-asset-item>
+        <img crossorigin="anonymous" id="puzzle1" src="./images/puzzle1.png" />
+        <img crossorigin="anonymous" id="puzzle2" src="./images/puzzle2.jpg" />
+        <img crossorigin="anonymous" id="puzzle3" src="./images/puzzle3.png" />
+        <img crossorigin="anonymous" id="puzzle4" src="./images/puzzle4.png" />
+        <img crossorigin="anonymous" id="puzzle5" src="./images/puzzle5.png" />
+        <img crossorigin="anonymous" id="puzzle6" src="./images/puzzle6.png" />
+        <img crossorigin="anonymous" id="puzzle7" src="./images/puzzle7.png" />
+        <img crossorigin="anonymous" id="puzzle8" src="./images/puzzle8.png" />
+        <img crossorigin="anonymous" id="puzzle9" src="./images/puzzle9.png" />
       </a-assets>
       <a-sky src="#skybox" rotation="0 20 0"></a-sky>
       <a-entity id="mainScene" visible="true">
           <a-gltf-model 
           id="stage" 
           src="#apartment" 
+          position="0 0.010 0"
           rotation="0 0 0"
           gltf-hide="parts:apartmentDoor001,apartmentDoor002,apartmentDoor"
           hide-in-state="state: running.debriefing.debriefingPlay; showOtherwise: true"
@@ -318,9 +328,8 @@
       <a-entity id="room1" game-state="type: room; name: room1; onDone:room1complete"></a-entity>      
       <a-entity id="room2" game-state="type: room; name: room2; onDone:room2complete"></a-entity>
       <a-entity id="finalRoom" game-state="type: room; name: finalRoom; onDone: finalCoomComplete"></a-entity>
-      <a-entity id="room1puzzle1" game-state="type: puzzle; name: puzzle1; room: room1"></a-entity>
-      <a-entity id="room2puzzle1" game-state="type: puzzle; name: puzzle1; room: room2"></a-entity>
-      <a-entity id="room3puzzle1" game-state="type: puzzle; name: puzzle1; room: finalRoom"></a-entity>
+      <!-- <a-entity id="room1puzzle1" ></a-entity> -->
+      <!-- <a-entity id="room3puzzle1" game-state="type: puzzle; name: puzzle1; room: finalRoom"></a-entity> -->
       <a-entity
         id="cameraRig"
         class="camera-rig"
@@ -334,14 +343,13 @@
           position="0 1.5 0"
           camera="near:0.1"
           look-controls="pointerLockEnabled: true"
-          origin-on-ar-start
           active=true
           >
         </a-entity>
-        <a-entity laser-controls="hand: left" raycaster="far:20;objects:.vr-interactable" smooth-locomotion="target: #cameraRig; reference: #camera">
+        <a-entity laser-controls="hand: left" raycaster="far:20;objects:.collidable" smooth-locomotion="target: #cameraRig; reference: #camera">
           <a-entity id="watchEntity" position="0.015 0.03 0.148" scale="0.2 0.2 0.2" rotation="255 -20.71 32" gltf-model="#watchModel" shadow></a-entity>
         </a-entity>
-        <a-entity laser-controls="hand: right; " raycaster="far:20;objects:.vr-interactable" smooth-turn="target:#cameraRig; reference:#camera" ></a-entity>
+        <a-entity laser-controls="hand: right; " raycaster="far:20;objects:.collidable" smooth-turn="target:#cameraRig; reference:#camera" ></a-entity>
       </a-entity>
       <a-entity 
         id="stationaryCameraRig" 
@@ -365,12 +373,14 @@
             animation__fadeIn="property: material.opacity; from: 1.0; to: 0.0 dur: 500; startEvents: animate_fadeIn;"
             animation__fadeOut="property: material.opacity; from: 0.0; to: 1.0 dur: 500; startEvents: animate_fadeOut;"
         ></a-sphere>          
-          <a-entity laser-controls="hand: left" raycaster="far:Infinity;objects:.vr-interactable" smooth-locomotion="target: #cameraRig; reference: #camera">
+          <a-entity laser-controls="hand: left" raycaster="far:Infinity;objects:.collidable" smooth-locomotion="target: #cameraRig; reference: #camera">
             <a-entity id="watchEntity" position="0.015 0.03 0.148" scale="0.2 0.2 0.2" rotation="255 -20.71 32" gltf-model="#watchModel" shadow></a-entity>          
           </a-entity>
-          <a-entity laser-controls="hand: right" raycaster="far:Infinity;objects:.vr-interactable" smooth-turn="target:#cameraRig; reference:#camera"></a-entity>  
+          <a-entity laser-controls="hand: right" raycaster="far:Infinity;objects:.collidable" smooth-turn="target:#cameraRig; reference:#camera"></a-entity>  
       </a-entity>
     </a-scene>
+
+
     <script>
 
       // Start the game state machine when the scene is loaded.
@@ -378,6 +388,9 @@
         setTimeout(function (){
           document.querySelector("a-scene").systems['game-state'].start();
           document.querySelector("a-scene").emit("game-state-event", "loaded");
+
+          // const clone2 = document.querySelector("#mainContent").content.cloneNode(true);
+          // document.querySelector("body").prepend(clone2);
         }, 1000);
         // document.querySelector("a-scene").systems['game-state'].start();
         //   document.querySelector("a-scene").emit("game-state-event", "loaded");

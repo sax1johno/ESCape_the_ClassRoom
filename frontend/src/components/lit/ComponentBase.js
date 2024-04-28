@@ -44,6 +44,8 @@ export const ComponentBaseMixin = (superClass) => {
               var settings = that.settings ? JSON.parse(that.settings) : {};
               // Disable border because there are race condition issues between border and the LitElement.
               // settings.border = false;
+              settings.interactiveTag = "collidable";
+              settings.createControllers = false;
               // console.log("Settings = ", settings)
               if (that.shadowRoot) {
                 that.web2vrComponent = new Web2VR(that.shadowRoot.getElementById(`container_${that.cid}`), settings);
@@ -81,7 +83,7 @@ export const ComponentBaseMixin = (superClass) => {
           updated(changedProperties) {
             super.updated(changedProperties);
             try {
-              this.web2vrComponent?.update();              
+              this.web2vrComponent?.update();
             } catch(e) {
               // Swallow the error since errors from update are transient
             }

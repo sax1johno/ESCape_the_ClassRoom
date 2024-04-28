@@ -115,7 +115,7 @@ export class Watch extends ComponentBaseElement {
       if (this.tickTime > 1000) {
         this.tickTime = 0;
         this._updateTime();
-      }      
+      }
     }
   
     _updateTime() {

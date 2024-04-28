@@ -1,5 +1,8 @@
 AFRAME.registerComponent('unlock-panel', {
-    schema: {type: 'string', default: ""},
+    schema: {
+      "solvedEvent": {type: 'string', default: ""},
+      "unlockCode" : {type: 'string', default: ""},
+    },
     init: function () {
         console.log("This.data = ", this.data);
       // Get the original element HTML from the lit element panel.
@@ -21,17 +24,18 @@ AFRAME.registerComponent('unlock-panel', {
         unlockInputs.forEach(function (input) {
           unlockCode += input.value;
         });
-        if (unlockCode === '12345') {
-          litContainer.querySelector('.info span').innerText = 'Code correct! Room unlocked';
-          document.querySelector('a-scene').emit('unlock-success');
+        console.log("Unlock Code = ", unlockCode.toUpperCase());
+        console.log("Data = ", that.data.unlockCode.toUpperCase());
+        if (unlockCode.toUpperCase() === that.data.unlockCode.toUpperCase()) {
+          litContainer.querySelector('.info span').innerText = 'Code correct! Puzzle Unlocked';
+          // document.querySelector('a-scene').emit('unlock-success');
           unlockInputs.forEach(function (input) {
             input.disabled = true;
           });
           litContainer.querySelector('button.unlock span').innerText = 'UNLOCKED';
           litContainer.querySelector('button.unlock').classList.add('disabled');
           litContainer.querySelector('button.unlock').removeEventListener('click', cb);
-          console.log("Attempting to raise event = ", that.data);
-          el.emit("game-state-event", that.data);
+          el.emit("game-state-event", that.data.solvedEvent);
         } else {
           // litContainer.querySelector('a-scene').emit('unlock-fail');
             litContainer.querySelector('.info span').innerText = 'Incorrect code. Try again.';
