@@ -38,9 +38,18 @@ Then you can start the application again:
 
 `npm start`
 
+## Playing the Game
 
+When you run the game, a message will display indicating the port the game is listening on (default is 8080).  Navigate to that URL in WebXR-compatible browser to start the game.
+
+If you're using a VR headset, you can click on the "VR" or "AR" buttons on the bottom right corner of the page to enter immersive VR or immersive AR mode.
+
+If you're viewing from a desktop browser, you can click in the scene to look around with the mouse, and use the arrow keys to move around.  You can also use `wasd` to navigate, with `w` going forward, `a` moving to the left, `d` moving to the right, and `s` moving backward.
+
+** Note for Desktop Browser Use**: The mouse pointer also doubles as the selection cursor.  When the mouse is captured and you're using it to look around, you will not be able to click on interactive elements.  To select an interactive element, hit the `escape` key to release the pointer capture.  You can then use the mouse to select the interactive element as you normally would.
 
 ## Folder Descriptions
 The current main application code lives in the `networked-aframe` directory. The `./networked-aframe/server` directory contains the server application (easyrtc-server.js). 
 
 The frontend code using the AFrameJS framework can be found in the `./networked-aframe/public` directory.  `index.html` is the entrypoint, with components contained in various `js` files throughout the project.
+
